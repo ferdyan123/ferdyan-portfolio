@@ -1,12 +1,11 @@
 import Navbar from '@/components/Navbar'
+import Hero from '@/components/Hero'
 
 export default function Home() {
   return (
     <main>
       <Navbar />
-      <div className="h-screen flex items-center justify-center">
-        <p className="text-muted font-mono text-sm">Building...</p>
-      </div>
+      <Hero />
     </main>
   )
 }
