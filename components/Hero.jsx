@@ -37,15 +37,17 @@ export default function Hero() {
   }, [])
 
   return (
-    <section className="relative min-h-screen px-6 overflow-hidden" style={{ paddingTop: '80px' }}>
-
+    <section
+      className="relative w-full overflow-hidden"
+      style={{ minHeight: '100vh', paddingTop: '80px' }}
+    >
       {/* Background orb */}
       <div
         className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full opacity-10 blur-[140px] pointer-events-none"
         style={{ background: 'radial-gradient(circle, #7F77DD 0%, transparent 70%)' }}
       />
 
-      <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-0 min-h-[calc(100vh-80px)]">
+      <div className="w-full max-w-6xl mx-auto px-6 flex flex-col lg:flex-row gap-8 lg:gap-0">
 
         {/* LEFT — Text */}
         <div className="flex flex-col justify-center lg:w-1/2 py-16 pr-8">
@@ -71,7 +73,7 @@ export default function Hero() {
           </p>
 
           {/* CTA Buttons */}
-          <div className="hero-cta flex flex-wrap items-center gap-4 mb-12 opacity-0">
+          <div className="hero-cta flex flex-wrap items-center gap-4 mb-10 opacity-0">
             <a
               href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
               target="_blank"
@@ -88,19 +90,35 @@ export default function Hero() {
             </a>
           </div>
 
-          {/* Stats */}
-          <div className="hero-cta flex flex-wrap gap-8 pt-6 border-t border-border opacity-0">
-            {stats.map((s) => (
-              <div key={s.label}>
-                <p className="text-2xl font-bold text-white font-mono">{s.value}</p>
-                <p className="text-xs text-muted mt-1 font-mono tracking-wider">{s.label}</p>
-              </div>
-            ))}
+          {/* Stats — redesigned */}
+          <div className="hero-cta opacity-0">
+            <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+              {stats.map((s) => (
+                <div
+                  key={s.label}
+                  className="group relative flex flex-col justify-between p-4 rounded-2xl border border-border bg-surface hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 overflow-hidden"
+                >
+                  {/* Subtle corner glow */}
+                  <div className="absolute top-0 right-0 w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                    style={{ background: 'radial-gradient(circle, rgba(127,119,221,0.15) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}
+                  />
+                  <p className="text-2xl font-bold text-white font-mono mb-1 group-hover:text-accent transition-colors duration-300">
+                    {s.value}
+                  </p>
+                  <p className="text-[11px] text-muted leading-tight">{s.label}</p>
+                  {/* Bottom accent bar */}
+                  <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-accent/50 transition-all duration-500 rounded-full" />
+                </div>
+              ))}
+            </div>
           </div>
         </div>
 
         {/* RIGHT — Photo */}
-        <div className="hero-img-wrap lg:w-1/2 flex items-center justify-center opacity-0 py-16">
+        <div
+          className="hero-img-wrap lg:w-1/2 hidden lg:flex items-start justify-center opacity-0"
+          style={{ paddingTop: '140px', paddingRight: '40px' }}
+        >
           <div className="relative" style={{ width: '300px', height: '400px' }}>
 
             {/* 3D layer back */}

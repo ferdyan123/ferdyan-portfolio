@@ -1,17 +1,95 @@
 'use client'
 
-import { useEffect, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import { siteConfig } from '@/data/projects'
 import { formatWhatsApp } from '@/lib/utils'
 
 export default function Navbar() {
-  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
+  const navRef = useRef(null)
+  const wrapRef = useRef(null)
+  const rafRef = useRef(0)
+  const progRef = useRef(0)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 60)
-    window.addEventListener('scroll', handleScroll)
-    return () => window.removeEventListener('scroll', handleScroll)
+    const THRESHOLD = 60
+    const SPEED_IN = 0.04
+    const SPEED_OUT = 0.055
+
+    function lerp(a, b, t) {
+      return a + (b - a) * t
+    }
+
+    function ease(t) {
+      return 1 - Math.pow(1 - t, 5)
+    }
+
+    function applyStyles(p) {
+      const nav = navRef.current
+      const wrap = wrapRef.current
+      if (!nav || !wrap) return
+
+      const ep = ease(p)
+
+      const borderRadius = lerp(0, 999, ep)
+      const scale = lerp(1, 0.96, ep)
+      const translateY = lerp(0, 14, ep)
+
+      const vw = window.innerWidth
+      const startW = vw - 32
+      const endW = Math.min(520, vw - 32)
+      const widthPx = lerp(startW, endW, ep)
+
+      const paddingV = lerp(12, 10, ep)
+      const paddingH = lerp(24, 16, ep)
+
+      const bgAlpha = lerp(0, 0.8, ep)
+      const blurVal = lerp(0, 24, ep)
+
+      const borderR = lerp(0, 139, ep)
+      const borderG = lerp(0, 92, ep)
+      const borderB = lerp(0, 246, ep)
+      const borderA = lerp(0, 0.25, ep)
+
+      const glow1A = lerp(0, 0.18, ep)
+      const glow2A = lerp(0, 0.09, ep)
+      const shadowA = lerp(0, 0.45, ep)
+      const insetA = lerp(0, 0.1, ep)
+
+      wrap.style.width = widthPx + 'px'
+
+      nav.style.background = 'rgba(10,10,10,' + bgAlpha + ')'
+      nav.style.backdropFilter = 'blur(' + blurVal + 'px)'
+      nav.style.WebkitBackdropFilter = 'blur(' + blurVal + 'px)'
+      nav.style.border = '1px solid rgba(' + borderR + ',' + borderG + ',' + borderB + ',' + borderA + ')'
+      nav.style.borderRadius = borderRadius + 'px'
+      nav.style.boxShadow = [
+        '0 0 30px rgba(139,92,246,' + glow1A + ')',
+        '0 0 70px rgba(139,92,246,' + glow2A + ')',
+        '0 8px 32px rgba(0,0,0,' + shadowA + ')',
+        'inset 0 1px 0 rgba(255,255,255,' + insetA + ')',
+      ].join(', ')
+      nav.style.transform = 'translateY(' + translateY + 'px) scale(' + scale + ')'
+      nav.style.padding = paddingV + 'px ' + paddingH + 'px'
+    }
+
+    let target = 0
+
+    function tick() {
+      target = window.scrollY > THRESHOLD ? 1 : 0
+      const speed = target > progRef.current ? SPEED_IN : SPEED_OUT
+      progRef.current = lerp(progRef.current, target, speed)
+
+      if (Math.abs(progRef.current - target) < 0.0008) {
+        progRef.current = target
+      }
+
+      applyStyles(progRef.current)
+      rafRef.current = requestAnimationFrame(tick)
+    }
+
+    rafRef.current = requestAnimationFrame(tick)
+    return () => cancelAnimationFrame(rafRef.current)
   }, [])
 
   const navLinks = [
@@ -21,94 +99,112 @@ export default function Navbar() {
     { label: 'Contact', href: '#cta' },
   ]
 
+  function handleMouseEnter(e) {
+    var el = e.currentTarget
+    el.style.background = 'rgba(139,92,246,0.12)'
+    el.style.border = '1px solid rgba(139,92,246,0.3)'
+    el.style.boxShadow = '0 0 20px rgba(139,92,246,0.15)'
+    el.style.transform = 'scale(1.03)'
+    el.style.transition = 'all 300ms ease'
+    el.style.color = '#ffffff'
+  }
+
+  function handleMouseLeave(e) {
+    var el = e.currentTarget
+    el.style.background = 'transparent'
+    el.style.border = '1px solid transparent'
+    el.style.boxShadow = 'none'
+    el.style.transform = 'scale(1)'
+    el.style.color = ''
+  }
+
   return (
     <div className="fixed top-0 left-0 right-0 z-50 flex justify-center pt-4 px-4">
-
-      {/* Floating pill navbar */}
-      <nav
-        style={{
-          background: scrolled ? 'rgba(10,10,10,0.75)' : 'transparent',
-          backdropFilter: scrolled ? 'blur(20px)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(20px)' : 'none',
-          border: scrolled ? '1px solid rgba(255,255,255,0.08)' : '1px solid transparent',
-          borderRadius: scrolled ? '999px' : '0px',
-          boxShadow: scrolled ? '0 8px 32px rgba(0,0,0,0.4)' : 'none',
-          transform: scrolled ? 'translateY(0px)' : 'translateY(-4px)',
-          opacity: 1,
-          transition: 'all 0.4s cubic-bezier(0.4, 0, 0.2, 1)',
-          width: scrolled ? 'auto' : '100%',
-          maxWidth: scrolled ? '680px' : '100%',
-          padding: scrolled ? '10px 24px' : '12px 24px',
-        }}
-      >
-        <div className="flex items-center justify-between gap-8">
-
-          {/* Logo */}
-          <a href="/" className="font-mono text-sm text-accent tracking-widest uppercase hover:opacity-70 transition-opacity flex-shrink-0">
-            FS<span className="text-muted">.</span>
-          </a>
-
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                className="text-sm text-muted hover:text-white transition-colors duration-200 whitespace-nowrap"
-              >
-                {link.label}
-              </a>
-            ))}
-          </div>
-
-          {/* CTA */}
-          <a
-            href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/40 text-sm text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 flex-shrink-0"
-          >
-            Hire Me
-          </a>
-
-          {/* Mobile hamburger */}
-          <button
-            onClick={() => setMenuOpen(!menuOpen)}
-            className="md:hidden flex flex-col gap-1.5 p-1"
-            aria-label="Toggle menu"
-          >
-            <span className={`block w-5 h-px bg-white transition-all duration-300 ${menuOpen ? 'rotate-45 translate-y-2' : ''}`} />
-            <span className={`block w-5 h-px bg-white transition-all duration-300 ${menuOpen ? 'opacity-0' : ''}`} />
-            <span className={`block w-5 h-px bg-white transition-all duration-300 ${menuOpen ? '-rotate-45 -translate-y-2' : ''}`} />
-          </button>
-        </div>
-
-        {/* Mobile menu */}
-        <div
-          className={`md:hidden overflow-hidden transition-all duration-300 ${menuOpen ? 'max-h-64 mt-4' : 'max-h-0'}`}
+      <div ref={wrapRef} style={{ width: '100%', transition: 'none', willChange: 'width' }}>
+        <nav
+          ref={navRef}
+          style={{
+            background: 'transparent',
+            border: '1px solid transparent',
+            borderRadius: '0px',
+            boxShadow: 'none',
+            transform: 'translateY(0px) scale(1)',
+            padding: '12px 24px',
+            transition: 'none',
+            willChange: 'transform, box-shadow, border-radius, background, border',
+          }}
         >
-          <div className="flex flex-col gap-4 pb-2">
-            {navLinks.map((link) => (
-              <a
-                key={link.label}
-                href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="text-sm text-muted hover:text-white transition-colors"
-              >
-                {link.label}
-              </a>
-            ))}
+          <div className="flex items-center justify-between gap-4">
+
+            <a
+              href="/"
+              className="font-mono text-sm text-accent tracking-widest uppercase hover:opacity-70 transition-opacity flex-shrink-0"
+            >
+              FS<span className="text-muted">.</span>
+            </a>
+
+            <div className="hidden md:flex items-center gap-1">
+              {navLinks.map(function(link) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    className="px-3 py-1.5 text-sm text-muted rounded-lg whitespace-nowrap"
+                    onMouseEnter={handleMouseEnter}
+                    onMouseLeave={handleMouseLeave}
+                  >
+                    {link.label}
+                  </a>
+                )
+              })}
+            </div>
+
             <a
               href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
-              className="text-sm text-accent"
+              className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/40 text-sm text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 flex-shrink-0"
             >
               Hire Me
             </a>
+
+            <button
+              onClick={function() { setMenuOpen(!menuOpen) }}
+              className="md:hidden flex flex-col gap-1.5 p-1"
+              aria-label="Toggle menu"
+            >
+              <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? 'rotate-45 translate-y-2' : '')} />
+              <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? 'opacity-0' : '')} />
+              <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? '-rotate-45 -translate-y-2' : '')} />
+            </button>
           </div>
-        </div>
-      </nav>
+
+          <div className={'md:hidden overflow-hidden transition-all duration-300 ' + (menuOpen ? 'max-h-64 mt-4' : 'max-h-0')}>
+            <div className="flex flex-col gap-4 pb-2">
+              {navLinks.map(function(link) {
+                return (
+                  <a
+                    key={link.label}
+                    href={link.href}
+                    onClick={function() { setMenuOpen(false) }}
+                    className="text-sm text-muted hover:text-white transition-colors"
+                  >
+                    {link.label}
+                  </a>
+                )
+              })}
+              <a
+                href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="text-sm text-accent"
+              >
+                Hire Me
+              </a>
+            </div>
+          </div>
+        </nav>
+      </div>
     </div>
   )
 }
