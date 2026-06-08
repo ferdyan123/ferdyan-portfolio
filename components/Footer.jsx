@@ -29,7 +29,14 @@ function InstagramIcon() {
 
 const ICON_MAP = { github: GitHubIcon, linkedin: LinkedInIcon, instagram: InstagramIcon };
 
-const navLinks = ["works", "skills", "testimonials", "contact"];
+const navLinks = [
+  { label: 'Works', href: '#works' },
+  { label: 'About', href: '#about' },
+  { label: 'Services', href: '#services' },
+  { label: 'Skills', href: '#skills' },
+  { label: 'Testimonials', href: '#testimonials' },
+  { label: 'Contact', href: '#contact' },
+];
 
 export default function Footer() {
   const year = new Date().getFullYear();
@@ -38,35 +45,49 @@ export default function Footer() {
   return (
     <footer className="relative border-t border-white/6 mt-8">
       <div className="max-w-7xl mx-auto px-6 md:px-10 py-12 md:py-16">
-        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-8">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-10">
 
-          {/* Left */}
+          {/* Left — branding */}
           <div className="flex flex-col gap-2">
             <Link href="/" className="flex items-center gap-1 group w-fit">
-              <span className="text-lg font-black text-white group-hover:text-[#7F77DD] transition-colors duration-300">Ferdyan</span>
+              <span className="text-lg font-black text-white group-hover:text-[#7F77DD] transition-colors duration-300">
+                Ferdyan
+              </span>
               <span className="text-lg font-black text-[#7F77DD]">.</span>
             </Link>
             <p className="text-xs text-white/30 max-w-[200px] leading-relaxed">
-              Building products that work — not just websites.
+              Building digital experiences — not just websites.
             </p>
           </div>
 
-          {/* Center */}
-          <nav className="flex items-center gap-6">
+          {/* Center — nav */}
+          <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
             {navLinks.map((item) => (
-              <a key={item} href={`#${item}`} className="text-xs text-white/35 hover:text-white capitalize transition-colors duration-200" style={{ fontFamily: "var(--font-mono)" }}>
-                {item}
+              <a
+                key={item.label}
+                href={item.href}
+                className="text-xs text-white/35 hover:text-white transition-colors duration-200"
+                style={{ fontFamily: "var(--font-mono)" }}
+              >
+                {item.label}
               </a>
             ))}
           </nav>
 
-          {/* Right */}
+          {/* Right — socials */}
           <div className="flex items-center gap-3">
             {socials.map((social) => {
               const Icon = ICON_MAP[social.icon];
               if (!Icon) return null;
               return (
-                <a key={social.platform} href={social.url} target="_blank" rel="noopener noreferrer" aria-label={social.platform} className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-white/35 hover:text-white hover:border-[#7F77DD]/40 transition-all duration-200">
+                <a
+                  key={social.platform}
+                  href={social.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={social.platform}
+                  className="w-9 h-9 rounded-lg border border-white/8 flex items-center justify-center text-white/35 hover:text-white hover:border-[#7F77DD]/40 transition-all duration-200"
+                >
                   <Icon />
                 </a>
               );
@@ -74,12 +95,18 @@ export default function Footer() {
           </div>
         </div>
 
-        {/* Bottom */}
+        {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/20" style={{ fontFamily: "var(--font-mono)" }}>
             © {year} Ferdyan Syahwal. All rights reserved.
           </p>
-          <a href={waUrl} target="_blank" rel="noopener noreferrer" className="text-xs text-white/20 hover:text-[#7F77DD] transition-colors duration-200" style={{ fontFamily: "var(--font-mono)" }}>
+          <a
+            href={waUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="text-xs text-white/20 hover:text-[#7F77DD] transition-colors duration-200"
+            style={{ fontFamily: "var(--font-mono)" }}
+          >
             Available for freelance →
           </a>
         </div>

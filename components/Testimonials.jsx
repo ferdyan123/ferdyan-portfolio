@@ -47,7 +47,7 @@ function TestimonialCard({ item, index }) {
     >
       {/* Stars */}
       <div className="flex items-center gap-1">
-        {Array.from({ length: 5 }).map((_, i) => (
+        {Array.from({ length: item.rating ?? 5 }).map((_, i) => (
           <StarIcon key={i} />
         ))}
       </div>
@@ -59,7 +59,6 @@ function TestimonialCard({ item, index }) {
 
       {/* Author */}
       <div className="flex items-center gap-3 pt-2 border-t border-white/5">
-        {/* Avatar placeholder */}
         <div className="w-9 h-9 rounded-full bg-[#7F77DD]/20 border border-[#7F77DD]/30 flex items-center justify-center flex-shrink-0">
           <span className="text-xs font-bold text-[#7F77DD]">
             {item.name.slice(0, 1)}
@@ -119,17 +118,22 @@ export default function Testimonials() {
             Testimonials
           </span>
         </div>
-        <h2 className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
-          What Clients{" "}
-          <span className="relative">
-            Say
-            <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-[#7F77DD] to-transparent opacity-60" />
-          </span>
-        </h2>
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
+          <h2 className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
+            Kata Mereka{" "}
+            <span className="relative">
+              Tentang Gue
+              <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-[#7F77DD] to-transparent opacity-60" />
+            </span>
+          </h2>
+          <p className="text-sm text-white/35 max-w-xs leading-relaxed">
+            Kepercayaan klien adalah aset terbesar. Ini yang mereka rasakan setelah bekerja sama.
+          </p>
+        </div>
       </div>
 
-      {/* Cards grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-5">
+      {/* Cards grid — 3 kolom */}
+      <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
         {testimonials.map((item, index) => (
           <TestimonialCard key={index} item={item} index={index} />
         ))}

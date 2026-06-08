@@ -2,7 +2,7 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { siteConfig } from '@/data/projects'
+import { siteConfig, stats } from '@/data/projects'
 import { formatWhatsApp } from '@/lib/utils'
 
 export default function Hero() {
@@ -47,55 +47,61 @@ export default function Hero() {
 
       <div className="w-full max-w-6xl mx-auto flex flex-col lg:flex-row gap-8 lg:gap-0 min-h-[calc(100vh-80px)]">
 
-        {/* LEFT - Text */}
+        {/* LEFT — Text */}
         <div className="flex flex-col justify-center lg:w-1/2 py-16 pr-8">
+
+          {/* Badge */}
           <div className="hero-label flex items-center gap-3 mb-8 opacity-0">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
-            <span className="font-mono text-xs text-muted tracking-widest uppercase">Available for work</span>
+            <span className="font-mono text-xs text-muted tracking-widest uppercase">
+              🟣 Available for Freelance Projects
+            </span>
           </div>
 
+          {/* Headline */}
           <h1 className="hero-heading text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6 opacity-0">
-            I Don&apos;t Just<br />
-            <span className="text-accent">Build Websites.</span><br />
-            I Build Products.
+            I Don&apos;t Just Build<br />
+            <span className="text-accent">Websites.</span> I Build<br />
+            Digital Experiences.
           </h1>
 
+          {/* Sub */}
           <p className="hero-sub text-muted text-base md:text-lg max-w-md mb-10 leading-relaxed opacity-0">
-            {siteConfig.subTagline} — Web apps, landing pages, dan digital products untuk pasar Indonesia.
+            {siteConfig.subTagline}
           </p>
 
+          {/* CTA Buttons */}
           <div className="hero-cta flex flex-wrap items-center gap-4 mb-12 opacity-0">
             <a
               href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-full font-medium hover:bg-accent-dim transition-all duration-300 hover:scale-105"
-            >Hubungi via WhatsApp</a>
+            >
+              Hubungi via WhatsApp
+            </a>
             <a
               href="#works"
               className="flex items-center gap-2 px-6 py-3 border border-border text-white rounded-full font-medium hover:border-accent hover:text-accent transition-all duration-300"
-            >Lihat Projects</a>
+            >
+              Lihat Portfolio
+            </a>
           </div>
 
+          {/* Stats */}
           <div className="hero-cta flex flex-wrap gap-8 pt-6 border-t border-border opacity-0">
-            {[
-              { value: '8+', label: 'Projects' },
-              { value: '98%', label: 'Satisfaction' },
-              { value: '7-14', label: 'Days' },
-              { value: '1yr', label: 'Experience' },
-            ].map((s) => (
+            {stats.map((s) => (
               <div key={s.label}>
-                <p className="text-2xl font-bold text-white">{s.value}</p>
+                <p className="text-2xl font-bold text-white font-mono">{s.value}</p>
                 <p className="text-xs text-muted mt-1 font-mono tracking-wider">{s.label}</p>
               </div>
             ))}
           </div>
         </div>
 
-        {/* RIGHT - Photo: full height kolom, foto center vertikal */}
+        {/* RIGHT — Photo */}
         <div className="hero-img-wrap lg:w-1/2 flex items-center justify-center opacity-0 py-16">
-          {/* Container dengan ruang untuk floating cards */}
-          <div className="relative" style={{ width: '300px', height: '400px', marginTop: '0' }}>
+          <div className="relative" style={{ width: '300px', height: '400px' }}>
 
             {/* 3D layer back */}
             <div
@@ -139,7 +145,7 @@ export default function Hero() {
               <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-bg/60 to-transparent" />
             </div>
 
-            {/* Floating card 1 — top LEFT, keluar dari foto */}
+            {/* Floating card 1 — top left */}
             <div
               ref={card1Ref}
               className="hero-card absolute opacity-0 bg-surface/95 backdrop-blur-md border border-border rounded-2xl px-4 py-3 flex items-center gap-3"
@@ -157,7 +163,7 @@ export default function Hero() {
               </div>
             </div>
 
-            {/* Floating card 2 — bottom RIGHT, keluar dari foto */}
+            {/* Floating card 2 — bottom right */}
             <div
               ref={card2Ref}
               className="hero-card absolute opacity-0 bg-surface/95 backdrop-blur-md border border-border rounded-2xl px-4 py-3 flex items-center gap-3"
