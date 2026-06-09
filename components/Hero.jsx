@@ -117,7 +117,7 @@ export default function Hero() {
         {/* RIGHT — Photo */}
         <div
           className="hero-img-wrap lg:w-1/2 hidden lg:flex items-start justify-center opacity-0"
-          style={{ paddingTop: '140px', paddingRight: '40px' }}
+          style={{ paddingTop: '140px', paddingLeft: '20px' }}
         >
           <div className="relative" style={{ width: '300px', height: '400px' }}>
 

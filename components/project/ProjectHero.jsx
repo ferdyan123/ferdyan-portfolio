@@ -15,15 +15,47 @@ function ArrowLeftIcon() {
 export default function ProjectHero({ project }) {
   const heroRef = useRef(null);
   const contentRef = useRef(null);
+  const mockupRef = useRef(null);
+  const backRef = useRef(null);
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        contentRef.current.children,
-        { opacity: 0, y: 30 },
-        { opacity: 1, y: 0, duration: 0.8, stagger: 0.1, ease: "power3.out", delay: 0.2 }
-      );
+      // Set initial state — semua hidden
+      gsap.set([backRef.current, contentRef.current.children, mockupRef.current], {
+        opacity: 0,
+        y: 30,
+      });
+
+      // Fungsi reveal — dipanggil setelah curtain selesai turun
+      const reveal = () => {
+        const tl = gsap.timeline({ defaults: { ease: "power3.out" } })
+
+        tl.to(backRef.current, { opacity: 1, y: 0, duration: 0.5 })
+          .to(contentRef.current.children, {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            stagger: 0.08,
+          }, "-=0.3")
+          .to(mockupRef.current, {
+            opacity: 1,
+            y: 0,
+            duration: 0.6,
+          }, "-=0.4")
+      }
+
+      // Listen event dari PageTransition — curtain sudah selesai turun
+      window.addEventListener("page-transition-complete", reveal)
+
+      // Fallback: kalau event tidak fired dalam 600ms (misal direct load), tetap reveal
+      const fallback = setTimeout(reveal, 600)
+
+      return () => {
+        window.removeEventListener("page-transition-complete", reveal)
+        clearTimeout(fallback)
+      }
     }, heroRef);
+
     return () => ctx.revert();
   }, []);
 
@@ -32,30 +64,38 @@ export default function ProjectHero({ project }) {
 
   return (
     <section ref={heroRef} className="relative pt-32 pb-16 px-6 md:px-10 max-w-7xl mx-auto">
-      <Link href="/#works" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors duration-200 mb-12 group">
-        <span className="group-hover:-translate-x-1 transition-transform duration-200">
-          <ArrowLeftIcon />
-        </span>
-        Back to Works
-      </Link>
 
+      {/* Back link */}
+      <div ref={backRef} style={{ opacity: 0 }}>
+        <Link href="/#works" className="inline-flex items-center gap-2 text-sm text-white/40 hover:text-white transition-colors duration-200 mb-12 group">
+          <span className="group-hover:-translate-x-1 transition-transform duration-200">
+            <ArrowLeftIcon />
+          </span>
+          Back to Works
+        </Link>
+      </div>
+
+      {/* Main content */}
       <div ref={contentRef}>
-        <div className="flex items-center gap-3 mb-4">
+        <div className="flex items-center gap-3 mb-4" style={{ opacity: 0 }}>
           <div className="w-6 h-px bg-[#7F77DD]" />
           <span className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD]" style={{ fontFamily: "var(--font-mono)" }}>
             {project.category} · {project.year}
           </span>
         </div>
 
-        <h1 className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tight mb-6">
+        <h1
+          className="text-5xl md:text-7xl font-black text-white leading-tight tracking-tight mb-6"
+          style={{ opacity: 0 }}
+        >
           {project.title}
         </h1>
 
-        <p className="text-lg text-white/50 max-w-2xl leading-relaxed mb-10">
+        <p className="text-lg text-white/50 max-w-2xl leading-relaxed mb-10" style={{ opacity: 0 }}>
           {project.shortDesc}
         </p>
 
-        <div className="flex items-center gap-4">
+        <div className="flex items-center gap-4" style={{ opacity: 0 }}>
           {project.liveUrl && project.liveUrl !== '#' && (
             <a href={project.liveUrl} target="_blank" rel="noopener noreferrer" className={btnPrimary}>
               Live Site →
@@ -69,7 +109,12 @@ export default function ProjectHero({ project }) {
         </div>
       </div>
 
-      <div className="mt-14 rounded-2xl border border-white/8 overflow-hidden bg-[#0d0d0d] h-64 md:h-96 flex items-center justify-center relative">
+      {/* Mockup / hero image */}
+      <div
+        ref={mockupRef}
+        style={{ opacity: 0 }}
+        className="mt-14 rounded-2xl border border-white/8 overflow-hidden bg-[#0d0d0d] h-64 md:h-96 flex items-center justify-center relative"
+      >
         <div
           className="absolute inset-0"
           style={{
