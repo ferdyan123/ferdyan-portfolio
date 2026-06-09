@@ -203,11 +203,7 @@ export default function Hero() {
         </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2 opacity-30">
-        <span className="font-mono text-xs text-muted">scroll</span>
-        <div className="w-px h-8 bg-muted animate-pulse" />
-      </div>
+
     </section>
   )
 }

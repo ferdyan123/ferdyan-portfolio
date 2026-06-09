@@ -1,5 +1,6 @@
 import './globals.css'
 import { siteConfig } from '@/data/projects'
+import { TransitionProvider } from '@/components/TransitionContext'
 import PageTransition from '@/components/PageTransition'
 
 export const metadata = {
@@ -19,8 +20,10 @@ export default function RootLayout({ children }) {
   return (
     <html lang="id" suppressHydrationWarning>
       <body className="bg-bg text-white font-sans antialiased">
-        <PageTransition />
-        {children}
+        <TransitionProvider>
+          <PageTransition />
+          {children}
+        </TransitionProvider>
       </body>
     </html>
   )

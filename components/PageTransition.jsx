@@ -2,39 +2,38 @@
 
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
-
-// Global ref yang bisa diakses dari hook
-export let curtainRef = { current: null }
-export let isAnimating = { current: false }
+import { useTransitionContext } from '@/components/TransitionContext'
 
 export default function PageTransition() {
   const el = useRef(null)
+  const ctx = useTransitionContext()
 
   useEffect(() => {
-    curtainRef.current = el.current
+    if (!el.current || !ctx) return
 
-    // Pastikan curtain tersembunyi di bawah layar saat pertama load
+    // Share ref ke context
+    ctx.curtainRef.current = el.current
+
+    // Sembunyikan di bawah layar
     gsap.set(el.current, { yPercent: 100 })
 
-    // Animasi masuk: curtain turun keluar layar (dari atas ke bawah)
-    // Dipanggil setelah router.push selesai & halaman baru mount
-    const handleRouteComplete = () => {
+    // Saat halaman baru mount → curtain turun keluar
+    const handleComplete = () => {
       if (!el.current) return
       gsap.to(el.current, {
         yPercent: -100,
         duration: 0.35,
         ease: 'power2.inOut',
         onComplete: () => {
-          // Reset posisi ke bawah layar setelah selesai, siap untuk transisi berikutnya
           gsap.set(el.current, { yPercent: 100 })
-          isAnimating.current = false
+          ctx.isAnimating.current = false
         },
       })
     }
 
-    window.addEventListener('page-transition-complete', handleRouteComplete)
-    return () => window.removeEventListener('page-transition-complete', handleRouteComplete)
-  }, [])
+    window.addEventListener('page-transition-complete', handleComplete)
+    return () => window.removeEventListener('page-transition-complete', handleComplete)
+  }, [ctx])
 
   return (
     <div
@@ -43,26 +42,11 @@ export default function PageTransition() {
         position: 'fixed',
         inset: 0,
         zIndex: 9999,
-        backgroundColor: '#7F77DD',
-        transform: 'translateY(100%)',
         pointerEvents: 'none',
+        transform: 'translateY(100%)',
+        background: '#0a0a0a',
+        borderTop: '3px solid #7F77DD',
       }}
-    >
-      {/* Flash accent → dark effect via CSS animation */}
-      <div
-        style={{
-          position: 'absolute',
-          inset: 0,
-          backgroundColor: '#0a0a0a',
-          animation: 'curtainFlash 0.1s ease forwards',
-        }}
-      />
-      <style>{`
-        @keyframes curtainFlash {
-          0% { opacity: 0; }
-          100% { opacity: 1; }
-        }
-      `}</style>
-    </div>
+    />
   )
 }
