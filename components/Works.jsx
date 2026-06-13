@@ -44,10 +44,10 @@ function ProjectCard({ project, index, onNavigate }) {
   return (
     <article
       onClick={() => onNavigate(`/projects/${project.slug}`)}
-      className="relative rounded-2xl border border-white/8 bg-[#111111] overflow-hidden transition-all duration-500 hover:border-[#7F77DD]/40 hover:bg-[#131318] hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(127,119,221,0.08)] will-change-transform cursor-pointer group"
+      className="relative rounded-2xl border border-white/8 bg-[#111111] overflow-hidden transition-all duration-500 hover:border-[#7F77DD]/40 hover:bg-[#131318] hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(127,119,221,0.08)] will-change-transform cursor-pointer group flex flex-col h-full"
     >
       {/* Thumbnail */}
-      <div className="relative h-52 sm:h-60 overflow-hidden bg-[#0d0d0d]">
+      <div className="relative h-52 sm:h-60 overflow-hidden bg-[#0d0d0d] flex-shrink-0">
         <div
           className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
           style={{
@@ -72,7 +72,7 @@ function ProjectCard({ project, index, onNavigate }) {
       </div>
 
       {/* Body */}
-      <div className="p-6">
+      <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
             <span className={`w-1.5 h-1.5 rounded-full ${typeStyle.dot}`} />
@@ -85,11 +85,13 @@ function ProjectCard({ project, index, onNavigate }) {
         <h3 className="text-lg font-bold text-white mb-2 group-hover:text-[#7F77DD] transition-colors duration-300">
           {project.title}
         </h3>
-        <p className="text-sm text-white/50 leading-relaxed mb-5 line-clamp-2">
+        <p className="text-sm text-white/50 leading-relaxed mb-5 line-clamp-2 flex-grow">
           {project.shortDesc}
         </p>
-        <div className="flex flex-wrap gap-1.5">
-          {project.tech.map((tag) => {
+
+        {/* Tech tags — selalu di bawah */}
+        <div className="flex flex-wrap gap-1.5 mt-auto">
+          {project.tech.slice(0, 5).map((tag) => {
             const colorClass = TECH_COLORS[tag] ?? "bg-white/5 text-white/40 border-white/10";
             return (
               <span key={tag} className={`text-[10px] font-medium px-2 py-0.5 rounded-md border ${colorClass}`} style={{ fontFamily: "var(--font-mono)" }}>
@@ -97,11 +99,16 @@ function ProjectCard({ project, index, onNavigate }) {
               </span>
             );
           })}
+          {project.tech.length > 5 && (
+            <span className="text-[10px] font-medium px-2 py-0.5 rounded-md border bg-white/5 text-white/30 border-white/10" style={{ fontFamily: "var(--font-mono)" }}>
+              +{project.tech.length - 5}
+            </span>
+          )}
         </div>
       </div>
 
       <div className="h-px mx-6 bg-gradient-to-r from-transparent via-white/5 to-transparent group-hover:via-[#7F77DD]/40 transition-all duration-500" />
-      <div className="h-4" />
+      <div className="h-4 flex-shrink-0" />
     </article>
   );
 }
@@ -158,10 +165,10 @@ export default function Works() {
         </div>
       </div>
 
-      {/* Grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
+      {/* Grid — items-stretch biar semua card tingginya sama */}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
         {projects.map((project, index) => (
-          <div key={project.slug} ref={(el) => (cardsRef.current[index] = el)}>
+          <div key={project.slug} ref={(el) => (cardsRef.current[index] = el)} className="flex">
             <ProjectCard project={project} index={index} onNavigate={navigateTo} />
           </div>
         ))}

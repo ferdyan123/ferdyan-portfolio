@@ -2,6 +2,7 @@ import { notFound } from 'next/navigation'
 import { projects } from '@/data/projects'
 import ProjectHero from '@/components/project/ProjectHero'
 import ProjectOverview from '@/components/project/ProjectOverview'
+import ProjectDocs from '@/components/project/ProjectDocs'
 import ProjectTech from '@/components/project/ProjectTech'
 import ProjectCTA from '@/components/project/ProjectCTA'
 import NextProject from '@/components/project/NextProject'
@@ -33,6 +34,7 @@ export default function ProjectPage({ params }) {
       <Navbar />
       <ProjectHero project={project} />
       <ProjectOverview project={project} />
+      <ProjectDocs project={project} />
       <ProjectTech project={project} />
       <ProjectCTA project={project} />
       <NextProject project={nextProject} />
