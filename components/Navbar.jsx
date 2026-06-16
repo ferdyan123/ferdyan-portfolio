@@ -32,7 +32,7 @@ export default function Navbar() {
       const translateY = lerp(0, 14, ep)
       const vw = window.innerWidth
       const startW = vw - 32
-      const endW = Math.min(680, vw - 32)
+      const endW = Math.min(920, vw - 32)
       const widthPx = lerp(startW, endW, ep)
       const paddingV = lerp(12, 10, ep)
       const paddingH = lerp(24, 16, ep)
@@ -112,7 +112,7 @@ export default function Navbar() {
             willChange: 'transform, box-shadow, border-radius, background, border',
           }}
         >
-          <div className="flex items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
 
             {/* Logo */}
             <a
@@ -122,8 +122,8 @@ export default function Navbar() {
               FS<span className="text-muted">.</span>
             </a>
 
-            {/* Nav links — sama persis dengan aslinya */}
-            <div className="hidden md:flex items-center gap-1">
+            {/* Nav links — flex-1 supaya center */}
+            <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
               {t.nav.links.map(function(link) {
                 return (
                   <a

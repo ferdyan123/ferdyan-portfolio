@@ -3,9 +3,13 @@ export const content = {
     nav: {
       links: [
         { label: 'Karya', href: '#works' },
+        { label: 'Tentang', href: '#about' },
+        { label: 'Layanan', href: '#services' },
+        { label: 'Kenapa Saya', href: '#why-me' },
         { label: 'Keahlian', href: '#skills' },
         { label: 'Testimoni', href: '#testimonials' },
-        { label: 'Kontak', href: '#cta' },
+        { label: 'Proses', href: '#process' },
+        { label: 'Kontak', href: '#contact' },
       ],
       hireMe: 'Hire Saya',
     },
@@ -238,9 +242,13 @@ export const content = {
     nav: {
       links: [
         { label: 'Works', href: '#works' },
+        { label: 'About', href: '#about' },
+        { label: 'Services', href: '#services' },
+        { label: 'Why Me', href: '#why-me' },
         { label: 'Skills', href: '#skills' },
         { label: 'Testimonials', href: '#testimonials' },
-        { label: 'Contact', href: '#cta' },
+        { label: 'Process', href: '#process' },
+        { label: 'Contact', href: '#contact' },
       ],
       hireMe: 'Hire Me',
     },
