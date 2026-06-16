@@ -4,6 +4,7 @@ import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import { whyMe, stats } from '@/data/projects'
+import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -12,94 +13,51 @@ export default function WhyMe() {
   const headingRef = useRef(null)
   const statsRef = useRef([])
   const cardsRef = useRef([])
+  const { t } = useLanguage()
+  const w = t.whyme
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        headingRef.current,
-        { opacity: 0, y: 30 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.8,
-          ease: 'power3.out',
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: 'top 80%',
-          },
-        }
-      )
-
-      gsap.fromTo(
-        statsRef.current,
-        { opacity: 0, y: 20 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.5,
-          ease: 'power2.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: headingRef.current,
-            start: 'top 75%',
-          },
-        }
-      )
-
-      gsap.fromTo(
-        cardsRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.6,
-          ease: 'power2.out',
-          stagger: 0.1,
-          scrollTrigger: {
-            trigger: sectionRef.current,
-            start: 'top 60%',
-          },
-        }
-      )
+      gsap.fromTo(headingRef.current, { opacity: 0, y: 30 }, {
+        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+        scrollTrigger: { trigger: headingRef.current, start: 'top 80%' },
+      })
+      gsap.fromTo(statsRef.current, { opacity: 0, y: 20 }, {
+        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1,
+        scrollTrigger: { trigger: headingRef.current, start: 'top 75%' },
+      })
+      gsap.fromTo(cardsRef.current, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1,
+        scrollTrigger: { trigger: sectionRef.current, start: 'top 60%' },
+      })
     }, sectionRef)
-
     return () => ctx.revert()
   }, [])
 
   return (
-    <section
-      id="why-me"
-      ref={sectionRef}
-      className="relative py-28 px-6 overflow-hidden"
-    >
-      {/* Accent glow top-left */}
+    <section id="why-me" ref={sectionRef} className="relative py-28 px-6 overflow-hidden">
       <div
         className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.05] pointer-events-none"
         style={{ background: 'radial-gradient(circle, #7F77DD 0%, transparent 70%)' }}
       />
 
       <div className="relative max-w-6xl mx-auto">
-        {/* Section label */}
         <div className="flex items-center gap-3 mb-12">
           <span className="font-mono text-accent text-sm tracking-widest uppercase">05</span>
           <div className="h-px w-12 bg-accent opacity-40" />
-          <span className="font-mono text-muted text-sm tracking-widest uppercase">Why Work With Me</span>
+          <span className="font-mono text-muted text-sm tracking-widest uppercase">{w.eyebrow}</span>
         </div>
 
-        {/* Top — heading + stats */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-end">
           <div ref={headingRef} style={{ opacity: 0 }}>
             <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
-              Kenapa Pilih{' '}
-              <span className="text-accent">Gue?</span>
+              {w.headline}{' '}
+              <span className="text-accent">{w.headlineAccent}</span>
             </h2>
-            <p className="text-muted text-base md:text-lg leading-relaxed max-w-md">
-              Banyak developer bisa ngoding. Tapi tidak banyak yang bisa mikir dari sisi
-              bisnis, desain, dan user sekaligus — dan deliver tepat waktu.
-            </p>
+            <p className="text-muted text-base md:text-lg leading-relaxed max-w-md">{w.sub}</p>
           </div>
 
-          {/* Stats row */}
+          {/* Stats — data dari projects.js */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4">
             {stats.map((stat, i) => (
               <div
@@ -115,7 +73,7 @@ export default function WhyMe() {
           </div>
         </div>
 
-        {/* Why Me Cards */}
+        {/* Cards — data dari projects.js */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
           {whyMe.map((item, i) => (
             <div
@@ -124,20 +82,13 @@ export default function WhyMe() {
               style={{ opacity: 0 }}
               className="group relative p-6 rounded-2xl border border-border bg-surface hover:border-accent/40 transition-all duration-300"
             >
-              {/* Top glow on hover */}
               <div
                 className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                 style={{ background: 'radial-gradient(circle at 50% 0%, rgba(127,119,221,0.07) 0%, transparent 70%)' }}
               />
-
-              {/* Icon */}
               <div className="text-2xl mb-4">{item.icon}</div>
-
-              {/* Content */}
               <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
               <p className="text-muted text-xs leading-relaxed">{item.desc}</p>
-
-              {/* Number watermark */}
               <span className="absolute bottom-4 right-5 font-mono text-4xl font-bold text-white/[0.03] select-none pointer-events-none">
                 {String(i + 1).padStart(2, '0')}
               </span>
@@ -145,12 +96,10 @@ export default function WhyMe() {
           ))}
         </div>
 
-        {/* Bottom quote */}
         <div className="mt-12 flex items-center gap-4 p-5 rounded-2xl border border-border/50 bg-surface/50">
           <div className="text-3xl flex-shrink-0">💬</div>
           <p className="text-muted text-sm leading-relaxed">
-            <span className="text-white font-medium">Setiap project gue treat seperti milik gue sendiri</span>{' '}
-            — karena reputasi gue ada di setiap baris kode yang gue tulis.
+            <span className="text-white font-medium">{w.quote}</span>{' '}{w.quoteEnd}
           </p>
         </div>
       </div>

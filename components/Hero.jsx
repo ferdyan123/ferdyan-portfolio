@@ -2,20 +2,23 @@
 
 import { useEffect, useRef } from 'react'
 import Image from 'next/image'
-import { siteConfig, stats } from '@/data/projects'
+import { siteConfig } from '@/data/projects'
 import { formatWhatsApp } from '@/lib/utils'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Hero() {
   const card1Ref = useRef(null)
   const card2Ref = useRef(null)
+  const { t } = useLanguage()
+  const h = t.hero
 
   useEffect(() => {
-    let t = 0
+    let time = 0
     let animId
     const float = () => {
-      t += 0.02
-      if (card1Ref.current) card1Ref.current.style.transform = `translateY(${Math.sin(t) * 6}px)`
-      if (card2Ref.current) card2Ref.current.style.transform = `translateY(${Math.sin(t + 1.5) * 6}px)`
+      time += 0.02
+      if (card1Ref.current) card1Ref.current.style.transform = `translateY(${Math.sin(time) * 6}px)`
+      if (card2Ref.current) card2Ref.current.style.transform = `translateY(${Math.sin(time + 1.5) * 6}px)`
       animId = requestAnimationFrame(float)
     }
     animId = requestAnimationFrame(float)
@@ -37,10 +40,7 @@ export default function Hero() {
   }, [])
 
   return (
-    <section
-      className="relative w-full overflow-hidden"
-      style={{ minHeight: '100vh', paddingTop: '80px' }}
-    >
+    <section className="relative w-full overflow-hidden" style={{ minHeight: '100vh', paddingTop: '80px' }}>
       {/* Background orb */}
       <div
         className="absolute top-1/3 right-0 w-[500px] h-[500px] rounded-full opacity-10 blur-[140px] pointer-events-none"
@@ -56,20 +56,20 @@ export default function Hero() {
           <div className="hero-label flex items-center gap-3 mb-8 opacity-0">
             <span className="w-2 h-2 rounded-full bg-accent animate-pulse" />
             <span className="font-mono text-xs text-muted tracking-widest uppercase">
-              🟣 Available for Freelance Projects
+              🟣 {h.badge}
             </span>
           </div>
 
           {/* Headline */}
           <h1 className="hero-heading text-5xl md:text-6xl font-bold leading-[1.05] tracking-tight mb-6 opacity-0">
-            I Don&apos;t Just Build<br />
-            <span className="text-accent">Websites.</span> I Build<br />
-            Digital Experiences.
+            {h.headlineLine1}<br />
+            <span className="text-accent">{h.headlineAccent}</span> {h.headlineLine2}<br />
+            {h.headlineLine3}
           </h1>
 
           {/* Sub */}
           <p className="hero-sub text-muted text-base md:text-lg max-w-md mb-10 leading-relaxed opacity-0">
-            {siteConfig.subTagline}
+            {h.subTagline}
           </p>
 
           {/* CTA Buttons */}
@@ -80,25 +80,24 @@ export default function Hero() {
               rel="noopener noreferrer"
               className="flex items-center gap-2 px-6 py-3 bg-accent text-white rounded-full font-medium hover:bg-accent-dim transition-all duration-300 hover:scale-105"
             >
-              Hubungi via WhatsApp
+              {h.ctaPrimary}
             </a>
             <a
               href="#works"
               className="flex items-center gap-2 px-6 py-3 border border-border text-white rounded-full font-medium hover:border-accent hover:text-accent transition-all duration-300"
             >
-              Lihat Portfolio
+              {h.ctaSecondary}
             </a>
           </div>
 
-          {/* Stats — redesigned */}
+          {/* Stats */}
           <div className="hero-cta opacity-0">
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
-              {stats.map((s) => (
+              {h.stats.map((s) => (
                 <div
                   key={s.label}
                   className="group relative flex flex-col justify-between p-4 rounded-2xl border border-border bg-surface hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 overflow-hidden"
                 >
-                  {/* Subtle corner glow */}
                   <div className="absolute top-0 right-0 w-12 h-12 rounded-full opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
                     style={{ background: 'radial-gradient(circle, rgba(127,119,221,0.15) 0%, transparent 70%)', transform: 'translate(30%, -30%)' }}
                   />
@@ -106,7 +105,6 @@ export default function Hero() {
                     {s.value}
                   </p>
                   <p className="text-[11px] text-muted leading-tight">{s.label}</p>
-                  {/* Bottom accent bar */}
                   <div className="absolute bottom-0 left-0 h-[2px] w-0 group-hover:w-full bg-accent/50 transition-all duration-500 rounded-full" />
                 </div>
               ))}
@@ -120,90 +118,41 @@ export default function Hero() {
           style={{ paddingTop: '140px', paddingLeft: '20px' }}
         >
           <div className="relative" style={{ width: '300px', height: '400px' }}>
-
-            {/* 3D layer back */}
-            <div
-              className="absolute rounded-[2rem]"
-              style={{
-                inset: 0,
-                background: 'linear-gradient(135deg, #3d3494, #1e1b4b)',
-                transform: 'translate(14px, 14px)',
-                zIndex: 1,
-              }}
-            />
-
-            {/* 3D layer mid */}
-            <div
-              className="absolute rounded-[2rem]"
-              style={{
-                inset: 0,
-                background: 'linear-gradient(135deg, #7F77DD, #534AB7)',
-                transform: 'translate(7px, 7px)',
-                zIndex: 2,
-                opacity: 0.7,
-              }}
-            />
-
-            {/* Photo */}
-            <div
-              className="absolute rounded-[2rem] overflow-hidden border border-white/10"
-              style={{
-                inset: 0,
-                zIndex: 3,
-                boxShadow: '0 20px 60px rgba(127,119,221,0.25)',
-              }}
-            >
-              <Image
-                src="/profile.png"
-                alt="Ferdyan Syahwal"
-                fill
-                className="object-cover object-top"
-                priority
-              />
+            <div className="absolute rounded-[2rem]" style={{ inset: 0, background: 'linear-gradient(135deg, #3d3494, #1e1b4b)', transform: 'translate(14px, 14px)', zIndex: 1 }} />
+            <div className="absolute rounded-[2rem]" style={{ inset: 0, background: 'linear-gradient(135deg, #7F77DD, #534AB7)', transform: 'translate(7px, 7px)', zIndex: 2, opacity: 0.7 }} />
+            <div className="absolute rounded-[2rem] overflow-hidden border border-white/10" style={{ inset: 0, zIndex: 3, boxShadow: '0 20px 60px rgba(127,119,221,0.25)' }}>
+              <Image src="/profile.png" alt="Ferdyan Syahwal" fill className="object-cover object-top" priority />
               <div className="absolute bottom-0 left-0 right-0 h-1/4 bg-gradient-to-t from-bg/60 to-transparent" />
             </div>
 
-            {/* Floating card 1 — top left */}
+            {/* Floating card 1 */}
             <div
               ref={card1Ref}
               className="hero-card absolute opacity-0 bg-surface/95 backdrop-blur-md border border-border rounded-2xl px-4 py-3 flex items-center gap-3"
-              style={{
-                top: '-16px',
-                left: '-80px',
-                zIndex: 10,
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
+              style={{ top: '-16px', left: '-80px', zIndex: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
             >
               <div className="w-2 h-2 rounded-full bg-accent animate-pulse flex-shrink-0" />
               <div>
-                <p className="text-sm font-bold text-white whitespace-nowrap">8+ Projects</p>
-                <p className="text-xs text-muted">shipped</p>
+                <p className="text-sm font-bold text-white whitespace-nowrap">{h.floatingCard1Title}</p>
+                <p className="text-xs text-muted">{h.floatingCard1Sub}</p>
               </div>
             </div>
 
-            {/* Floating card 2 — bottom right */}
+            {/* Floating card 2 */}
             <div
               ref={card2Ref}
               className="hero-card absolute opacity-0 bg-surface/95 backdrop-blur-md border border-border rounded-2xl px-4 py-3 flex items-center gap-3"
-              style={{
-                bottom: '-16px',
-                right: '-80px',
-                zIndex: 10,
-                boxShadow: '0 8px 32px rgba(0,0,0,0.4)',
-              }}
+              style={{ bottom: '-16px', right: '-80px', zIndex: 10, boxShadow: '0 8px 32px rgba(0,0,0,0.4)' }}
             >
               <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse flex-shrink-0" />
               <div>
-                <p className="text-sm font-bold text-white whitespace-nowrap">Available for Work</p>
-                <p className="text-xs text-muted">Open to projects</p>
+                <p className="text-sm font-bold text-white whitespace-nowrap">{h.floatingCard2Title}</p>
+                <p className="text-xs text-muted">{h.floatingCard2Sub}</p>
               </div>
             </div>
-
           </div>
         </div>
       </div>
-
-
     </section>
   )
 }

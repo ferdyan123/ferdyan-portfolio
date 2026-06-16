@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import { siteConfig } from '@/data/projects'
 import { formatWhatsApp } from '@/lib/utils'
+import { useLanguage } from '@/context/LanguageContext'
 
 export default function Navbar() {
   const [menuOpen, setMenuOpen] = useState(false)
@@ -10,19 +11,15 @@ export default function Navbar() {
   const wrapRef = useRef(null)
   const rafRef = useRef(0)
   const progRef = useRef(0)
+  const { lang, toggleLang, t } = useLanguage()
 
   useEffect(() => {
     const THRESHOLD = 60
     const SPEED_IN = 0.04
     const SPEED_OUT = 0.055
 
-    function lerp(a, b, t) {
-      return a + (b - a) * t
-    }
-
-    function ease(t) {
-      return 1 - Math.pow(1 - t, 5)
-    }
+    function lerp(a, b, t) { return a + (b - a) * t }
+    function ease(t) { return 1 - Math.pow(1 - t, 5) }
 
     function applyStyles(p) {
       const nav = navRef.current
@@ -30,34 +27,27 @@ export default function Navbar() {
       if (!nav || !wrap) return
 
       const ep = ease(p)
-
       const borderRadius = lerp(0, 999, ep)
       const scale = lerp(1, 0.96, ep)
       const translateY = lerp(0, 14, ep)
-
       const vw = window.innerWidth
       const startW = vw - 32
-      const endW = Math.min(520, vw - 32)
+      const endW = Math.min(680, vw - 32)
       const widthPx = lerp(startW, endW, ep)
-
       const paddingV = lerp(12, 10, ep)
       const paddingH = lerp(24, 16, ep)
-
       const bgAlpha = lerp(0, 0.8, ep)
       const blurVal = lerp(0, 24, ep)
-
       const borderR = lerp(0, 139, ep)
       const borderG = lerp(0, 92, ep)
       const borderB = lerp(0, 246, ep)
       const borderA = lerp(0, 0.25, ep)
-
       const glow1A = lerp(0, 0.18, ep)
       const glow2A = lerp(0, 0.09, ep)
       const shadowA = lerp(0, 0.45, ep)
       const insetA = lerp(0, 0.1, ep)
 
       wrap.style.width = widthPx + 'px'
-
       nav.style.background = 'rgba(10,10,10,' + bgAlpha + ')'
       nav.style.backdropFilter = 'blur(' + blurVal + 'px)'
       nav.style.WebkitBackdropFilter = 'blur(' + blurVal + 'px)'
@@ -74,16 +64,11 @@ export default function Navbar() {
     }
 
     let target = 0
-
     function tick() {
       target = window.scrollY > THRESHOLD ? 1 : 0
       const speed = target > progRef.current ? SPEED_IN : SPEED_OUT
       progRef.current = lerp(progRef.current, target, speed)
-
-      if (Math.abs(progRef.current - target) < 0.0008) {
-        progRef.current = target
-      }
-
+      if (Math.abs(progRef.current - target) < 0.0008) progRef.current = target
       applyStyles(progRef.current)
       rafRef.current = requestAnimationFrame(tick)
     }
@@ -91,13 +76,6 @@ export default function Navbar() {
     rafRef.current = requestAnimationFrame(tick)
     return () => cancelAnimationFrame(rafRef.current)
   }, [])
-
-  const navLinks = [
-    { label: 'Works', href: '#works' },
-    { label: 'Skills', href: '#skills' },
-    { label: 'Testimonials', href: '#testimonials' },
-    { label: 'Contact', href: '#cta' },
-  ]
 
   function handleMouseEnter(e) {
     var el = e.currentTarget
@@ -136,6 +114,7 @@ export default function Navbar() {
         >
           <div className="flex items-center justify-between gap-4">
 
+            {/* Logo */}
             <a
               href="/"
               className="font-mono text-sm text-accent tracking-widest uppercase hover:opacity-70 transition-opacity flex-shrink-0"
@@ -143,11 +122,12 @@ export default function Navbar() {
               FS<span className="text-muted">.</span>
             </a>
 
+            {/* Nav links — sama persis dengan aslinya */}
             <div className="hidden md:flex items-center gap-1">
-              {navLinks.map(function(link) {
+              {t.nav.links.map(function(link) {
                 return (
                   <a
-                    key={link.label}
+                    key={link.href}
                     href={link.href}
                     className="px-3 py-1.5 text-sm text-muted rounded-lg whitespace-nowrap"
                     onMouseEnter={handleMouseEnter}
@@ -159,15 +139,47 @@ export default function Navbar() {
               })}
             </div>
 
-            <a
-              href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hidden md:flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/40 text-sm text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 flex-shrink-0"
-            >
-              Hire Me
-            </a>
+            {/* Right side — toggle bahasa + Hire Me */}
+            <div className="hidden md:flex items-center gap-2 flex-shrink-0">
+              {/* Language toggle */}
+              <button
+                onClick={toggleLang}
+                aria-label="Toggle language"
+                className="flex items-center rounded-full border border-white/20 overflow-hidden text-xs font-mono font-semibold"
+                style={{ height: '28px' }}
+              >
+                <span
+                  className="px-2.5 h-full flex items-center transition-colors duration-200"
+                  style={{
+                    background: lang === 'id' ? '#7F77DD' : 'transparent',
+                    color: lang === 'id' ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                  }}
+                >
+                  ID
+                </span>
+                <span
+                  className="px-2.5 h-full flex items-center transition-colors duration-200"
+                  style={{
+                    background: lang === 'en' ? '#7F77DD' : 'transparent',
+                    color: lang === 'en' ? '#ffffff' : 'rgba(255,255,255,0.4)',
+                  }}
+                >
+                  EN
+                </span>
+              </button>
 
+              {/* Hire Me */}
+              <a
+                href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-1.5 rounded-full border border-accent/40 text-sm text-accent hover:bg-accent hover:text-white hover:border-accent transition-all duration-300 flex-shrink-0"
+              >
+                {t.nav.hireMe}
+              </a>
+            </div>
+
+            {/* Mobile hamburger */}
             <button
               onClick={function() { setMenuOpen(!menuOpen) }}
               className="md:hidden flex flex-col gap-1.5 p-1"
@@ -179,12 +191,13 @@ export default function Navbar() {
             </button>
           </div>
 
+          {/* Mobile menu */}
           <div className={'md:hidden overflow-hidden transition-all duration-300 ' + (menuOpen ? 'max-h-64 mt-4' : 'max-h-0')}>
             <div className="flex flex-col gap-4 pb-2">
-              {navLinks.map(function(link) {
+              {t.nav.links.map(function(link) {
                 return (
                   <a
-                    key={link.label}
+                    key={link.href}
                     href={link.href}
                     onClick={function() { setMenuOpen(false) }}
                     className="text-sm text-muted hover:text-white transition-colors"
@@ -193,13 +206,21 @@ export default function Navbar() {
                   </a>
                 )
               })}
+              <button
+                onClick={toggleLang}
+                className="flex items-center rounded-full border border-white/20 overflow-hidden text-xs font-mono font-semibold w-fit"
+                style={{ height: '28px' }}
+              >
+                <span className="px-2.5 h-full flex items-center" style={{ background: lang === 'id' ? '#7F77DD' : 'transparent', color: lang === 'id' ? '#fff' : 'rgba(255,255,255,0.4)' }}>ID</span>
+                <span className="px-2.5 h-full flex items-center" style={{ background: lang === 'en' ? '#7F77DD' : 'transparent', color: lang === 'en' ? '#fff' : 'rgba(255,255,255,0.4)' }}>EN</span>
+              </button>
               <a
                 href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-sm text-accent"
               >
-                Hire Me
+                {t.nav.hireMe}
               </a>
             </div>
           </div>

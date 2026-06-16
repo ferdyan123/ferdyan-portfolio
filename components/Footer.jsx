@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { siteConfig, socials } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 function GitHubIcon() {
   return (
@@ -29,17 +30,10 @@ function InstagramIcon() {
 
 const ICON_MAP = { github: GitHubIcon, linkedin: LinkedInIcon, instagram: InstagramIcon };
 
-const navLinks = [
-  { label: 'Works', href: '#works' },
-  { label: 'About', href: '#about' },
-  { label: 'Services', href: '#services' },
-  { label: 'Skills', href: '#skills' },
-  { label: 'Testimonials', href: '#testimonials' },
-  { label: 'Contact', href: '#contact' },
-];
-
 export default function Footer() {
   const year = new Date().getFullYear();
+  const { t } = useLanguage();
+  const f = t.footer;
   const waUrl = `https://wa.me/${siteConfig.whatsapp}?text=${encodeURIComponent(siteConfig.whatsappMessage)}`;
 
   return (
@@ -50,21 +44,17 @@ export default function Footer() {
           {/* Left — branding */}
           <div className="flex flex-col gap-2">
             <Link href="/" className="flex items-center gap-1 group w-fit">
-              <span className="text-lg font-black text-white group-hover:text-[#7F77DD] transition-colors duration-300">
-                Ferdyan
-              </span>
+              <span className="text-lg font-black text-white group-hover:text-[#7F77DD] transition-colors duration-300">Ferdyan</span>
               <span className="text-lg font-black text-[#7F77DD]">.</span>
             </Link>
-            <p className="text-xs text-white/30 max-w-[200px] leading-relaxed">
-              Building digital experiences — not just websites.
-            </p>
+            <p className="text-xs text-white/30 max-w-[200px] leading-relaxed">{f.tagline}</p>
           </div>
 
           {/* Center — nav */}
           <nav className="flex flex-wrap items-center gap-x-6 gap-y-2">
-            {navLinks.map((item) => (
+            {f.navLinks.map((item) => (
               <a
-                key={item.label}
+                key={item.href}
                 href={item.href}
                 className="text-xs text-white/35 hover:text-white transition-colors duration-200"
                 style={{ fontFamily: "var(--font-mono)" }}
@@ -98,7 +88,7 @@ export default function Footer() {
         {/* Bottom bar */}
         <div className="mt-10 pt-6 border-t border-white/5 flex flex-col sm:flex-row items-center justify-between gap-3">
           <p className="text-xs text-white/20" style={{ fontFamily: "var(--font-mono)" }}>
-            © {year} Ferdyan Syahwal. All rights reserved.
+            © {year} {f.copyright}
           </p>
           <a
             href={waUrl}
@@ -107,7 +97,7 @@ export default function Footer() {
             className="text-xs text-white/20 hover:text-[#7F77DD] transition-colors duration-200"
             style={{ fontFamily: "var(--font-mono)" }}
           >
-            Available for freelance →
+            {f.availableLink}
           </a>
         </div>
       </div>

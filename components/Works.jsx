@@ -5,6 +5,7 @@ import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/projects";
 import { usePageTransition } from "@/lib/usePageTransition";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -46,13 +47,9 @@ function ProjectCard({ project, index, onNavigate }) {
       onClick={() => onNavigate(`/projects/${project.slug}`)}
       className="relative rounded-2xl border border-white/8 bg-[#111111] overflow-hidden transition-all duration-500 hover:border-[#7F77DD]/40 hover:bg-[#131318] hover:-translate-y-1 hover:shadow-[0_0_40px_rgba(127,119,221,0.08)] will-change-transform cursor-pointer group flex flex-col h-full"
     >
-      {/* Thumbnail */}
       <div className="relative h-52 sm:h-60 overflow-hidden bg-[#0d0d0d] flex-shrink-0">
-        <div
-          className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
-          style={{
-            background: `radial-gradient(ellipse 80% 80% at 30% 40%, rgba(127,119,221,0.12) 0%, transparent 70%), repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(255,255,255,0.015) 20px, rgba(255,255,255,0.015) 21px)`,
-          }}
+        <div className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
+          style={{ background: `radial-gradient(ellipse 80% 80% at 30% 40%, rgba(127,119,221,0.12) 0%, transparent 70%), repeating-linear-gradient(-45deg, transparent, transparent 20px, rgba(255,255,255,0.015) 20px, rgba(255,255,255,0.015) 21px)` }}
         />
         <div className="absolute inset-0 flex items-center justify-center select-none pointer-events-none">
           <span className="text-7xl font-black tracking-tighter opacity-5 text-white" style={{ fontFamily: "var(--font-mono)" }}>
@@ -71,7 +68,6 @@ function ProjectCard({ project, index, onNavigate }) {
         </div>
       </div>
 
-      {/* Body */}
       <div className="p-6 flex flex-col flex-grow">
         <div className="flex items-center justify-between mb-3">
           <div className="flex items-center gap-2">
@@ -88,8 +84,6 @@ function ProjectCard({ project, index, onNavigate }) {
         <p className="text-sm text-white/50 leading-relaxed mb-5 line-clamp-2 flex-grow">
           {project.shortDesc}
         </p>
-
-        {/* Tech tags — selalu di bawah */}
         <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.tech.slice(0, 5).map((tag) => {
             const colorClass = TECH_COLORS[tag] ?? "bg-white/5 text-white/40 border-white/10";
@@ -118,6 +112,8 @@ export default function Works() {
   const headerRef = useRef(null);
   const cardsRef = useRef([]);
   const { navigateTo } = usePageTransition();
+  const { t } = useLanguage();
+  const w = t.works;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -142,30 +138,25 @@ export default function Works() {
 
   return (
     <section id="works" ref={sectionRef} className="relative py-24 md:py-32 px-6 md:px-10 max-w-7xl mx-auto">
-
-      {/* Header */}
       <div ref={headerRef} className="mb-16">
         <div className="flex items-center gap-3 mb-4">
           <div className="w-6 h-px bg-[#7F77DD]" />
           <span className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD]" style={{ fontFamily: "var(--font-mono)" }}>
-            Selected Works
+            {w.eyebrow}
           </span>
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <h2 className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
-            Project Pilihan{" "}
+            {w.headline}{" "}
             <span className="relative">
-              Gue
+              {w.headlineAccent}
               <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-[#7F77DD] to-transparent opacity-60" />
             </span>
           </h2>
-          <p className="text-sm text-white/35 max-w-xs leading-relaxed">
-            Project pilihan yang gue bangun untuk membantu bisnis tampil lebih profesional di dunia digital.
-          </p>
+          <p className="text-sm text-white/35 max-w-xs leading-relaxed">{w.sub}</p>
         </div>
       </div>
 
-      {/* Grid — items-stretch biar semua card tingginya sama */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
         {projects.map((project, index) => (
           <div key={project.slug} ref={(el) => (cardsRef.current[index] = el)} className="flex">
@@ -174,7 +165,6 @@ export default function Works() {
         ))}
       </div>
 
-      {/* Placeholder cards */}
       {projects.length < 6 && (
         <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5">
           {Array.from({ length: Math.min(3, 6 - projects.length) }).map((_, i) => (
@@ -184,7 +174,7 @@ export default function Works() {
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />
                 </svg>
               </div>
-              <span className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>Coming Soon</span>
+              <span className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>{w.comingSoon}</span>
             </div>
           ))}
         </div>

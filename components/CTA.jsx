@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { siteConfig, socials } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -40,33 +41,20 @@ function InstagramIcon() {
   );
 }
 
-const ICON_MAP = {
-  github: GitHubIcon,
-  linkedin: LinkedInIcon,
-  instagram: InstagramIcon,
-};
+const ICON_MAP = { github: GitHubIcon, linkedin: LinkedInIcon, instagram: InstagramIcon };
 
 export default function CTA() {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
+  const { t } = useLanguage();
+  const c = t.cta;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      gsap.fromTo(
-        contentRef.current,
-        { opacity: 0, y: 40 },
-        {
-          opacity: 1,
-          y: 0,
-          duration: 0.9,
-          ease: "power3.out",
-          scrollTrigger: {
-            trigger: contentRef.current,
-            start: "top 85%",
-            toggleActions: "play none none none",
-          },
-        }
-      );
+      gsap.fromTo(contentRef.current, { opacity: 0, y: 40 }, {
+        opacity: 1, y: 0, duration: 0.9, ease: "power3.out",
+        scrollTrigger: { trigger: contentRef.current, start: "top 85%", toggleActions: "play none none none" },
+      });
     }, sectionRef);
     return () => ctx.revert();
   }, []);
@@ -77,40 +65,27 @@ export default function CTA() {
     <section id="contact" ref={sectionRef} className="relative py-24 md:py-32 px-6 md:px-10 max-w-7xl mx-auto">
       <div className="h-px bg-gradient-to-r from-transparent via-white/8 to-transparent mb-24" />
 
-      <div
-        ref={contentRef}
-        className="relative rounded-3xl border border-white/8 bg-[#111111] overflow-hidden px-8 py-16 md:px-16 md:py-20 text-center"
-      >
-        {/* Glow */}
+      <div ref={contentRef} className="relative rounded-3xl border border-white/8 bg-[#111111] overflow-hidden px-8 py-16 md:px-16 md:py-20 text-center">
         <div className="absolute inset-0 pointer-events-none">
           <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[#7F77DD]/6 blur-[80px] rounded-full" />
         </div>
 
-        {/* Label */}
         <div className="flex items-center justify-center gap-3 mb-6">
           <div className="w-6 h-px bg-[#7F77DD]" />
-          <span
-            className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD]"
-            style={{ fontFamily: "var(--font-mono)" }}
-          >
-            Let&apos;s Work Together
+          <span className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD]" style={{ fontFamily: "var(--font-mono)" }}>
+            {c.eyebrow}
           </span>
           <div className="w-6 h-px bg-[#7F77DD]" />
         </div>
 
-        {/* Headline */}
         <h2 className="text-4xl md:text-6xl font-black text-white leading-tight tracking-tight mb-4">
-          Let&apos;s Build Something
+          {c.headlineLine1}
           <br />
-          <span className="text-[#7F77DD]">Great Together</span>
+          <span className="text-[#7F77DD]">{c.headlineAccent}</span>
         </h2>
 
-        {/* Sub */}
-        <p className="text-base text-white/45 max-w-md mx-auto mb-10 leading-relaxed">
-          Punya ide, bisnis, atau project yang ingin diwujudkan? Gue siap membantu.
-        </p>
+        <p className="text-base text-white/45 max-w-md mx-auto mb-10 leading-relaxed">{c.sub}</p>
 
-        {/* Buttons */}
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <a
             href={waUrl}
@@ -119,17 +94,16 @@ export default function CTA() {
             className="inline-flex items-center gap-3 px-7 py-3.5 bg-[#7F77DD] hover:bg-[#6d66cc] text-white font-semibold text-sm rounded-xl transition-all duration-300 hover:shadow-[0_0_32px_rgba(127,119,221,0.4)] hover:-translate-y-0.5"
           >
             <WhatsAppIcon />
-            Hubungi Saya
+            {c.ctaPrimary}
           </a>
           <a
             href="#works"
             className="inline-flex items-center gap-2 px-7 py-3.5 border border-white/10 hover:border-[#7F77DD]/50 text-white/70 hover:text-white font-semibold text-sm rounded-xl transition-all duration-300 hover:-translate-y-0.5"
           >
-            Lihat Portfolio
+            {c.ctaSecondary}
           </a>
         </div>
 
-        {/* Social links */}
         <div className="flex items-center justify-center gap-3">
           {socials.map((social) => {
             const Icon = ICON_MAP[social.icon];
