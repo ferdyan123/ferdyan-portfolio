@@ -18,6 +18,19 @@ const LABELS = {
   "news.png": "Berita Forex",
 };
 
+function isMobileProject(src) {
+  return ["tradevision", "lulusai"].some(p => src.includes(p));
+}
+
+function getAspectRatio(src) {
+  // Screenshots dari journalyze (desktop) → 16/9
+  // Screenshots dari tradevision/lulusai (mobile) → 9/16
+  const filename = src.split("/").pop();
+  const mobileProjects = ["tradevision", "lulusai"];
+  const isMobile = mobileProjects.some(p => src.includes(p));
+  return isMobile ? "9/16" : "16/9";
+}
+
 function getLabel(src) {
   const filename = src.split("/").pop();
   return LABELS[filename] ?? filename.replace(".png", "").replace(".jpg", "");
@@ -83,36 +96,34 @@ export default function ProjectDocs({ project }) {
       </div>
 
       {/* Grid */}
-      <div ref={gridRef} className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div ref={gridRef} className="grid grid-cols-2 md:grid-cols-3 gap-3">
         {screenshots.map((src, i) => (
           <div
             key={i}
             onClick={() => setLightbox(src)}
-            className="relative rounded-xl overflow-hidden border border-white/8 bg-[#0d0d0d] cursor-zoom-in group transition-all duration-300 hover:border-white/20 hover:-translate-y-0.5"
-            style={{ aspectRatio: "16/9" }}
+            className={`relative rounded-xl overflow-hidden cursor-zoom-in group transition-all duration-300 hover:-translate-y-0.5 ${
+              isMobileProject(src)
+                ? 'bg-transparent'
+                : 'border border-white/8 bg-[#0d0d0d] hover:border-white/20'
+            }`}
           >
             <Image
               src={src}
               alt={getLabel(src)}
-              fill
-              className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.02]"
-              sizes="(max-width: 640px) 100vw, 50vw"
+              width={600}
+              height={400}
+              className="w-full h-auto object-contain transition-transform duration-500 group-hover:scale-[1.02]"
+              sizes="(max-width: 640px) 50vw, 33vw"
             />
             {/* Label overlay */}
-            <div className="absolute bottom-0 left-0 right-0 px-4 py-3 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span
-                className="text-xs font-medium text-white/70"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
+            <div className="absolute bottom-0 left-0 right-0 px-3 py-2 bg-gradient-to-t from-black/80 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="text-xs font-medium text-white/70" style={{ fontFamily: "var(--font-mono)" }}>
                 {getLabel(src)}
               </span>
             </div>
             {/* Index badge */}
-            <div className="absolute top-3 right-3 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-              <span
-                className="text-xs px-2 py-1 rounded-md bg-black/60 backdrop-blur-sm border border-white/10 text-white/40"
-                style={{ fontFamily: "var(--font-mono)" }}
-              >
+            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+              <span className="text-xs px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm border border-white/10 text-white/40" style={{ fontFamily: "var(--font-mono)" }}>
                 {String(i + 1).padStart(2, "0")}
               </span>
             </div>

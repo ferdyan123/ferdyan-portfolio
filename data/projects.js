@@ -20,6 +20,7 @@ Halaman ini menampilkan demo AI chat interaktif, breakdown fitur per bundle, pri
     liveUrl: '#',
     githubUrl: null,
     cover: '/projects/lulusai/cover.jpg',
+    mockup: '/projects/lulusai/mockup.png',
     screenshots: [
       '/projects/lulusai/home.png',
       '/projects/lulusai/masalah.png',
@@ -84,6 +85,7 @@ Dibangun dengan vanilla JS + Supabase sebagai backend — mendukung cloud sync a
     liveUrl: 'https://journalyze.my.id/live.html',
     githubUrl: null,
     cover: '/projects/journalyze-web/cover.jpg',
+    mockup: '/projects/journalyze-web/mockup.png',
     screenshots: [
       '/projects/journalyze-web/home.png',
       '/projects/journalyze-web/risiko.png',
@@ -181,6 +183,7 @@ Dibangun dengan vanilla JS + Supabase sebagai backend — mendukung cloud sync a
     liveUrl: '#',
     githubUrl: null,
     cover: '/projects/journalyze-app/cover.jpg',
+    mockup: '/projects/journalyze-app/mockup.png',
     screenshots: [],
     featured: false,
   },
