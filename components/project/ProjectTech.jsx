@@ -15,6 +15,7 @@ const TECH_COLORS = {
   "Next.js":    "bg-white/10 text-white/70 border-white/10",
   "React":      "bg-cyan-500/10 text-cyan-400 border-cyan-500/20",
   "Tailwind CSS": "bg-sky-500/10 text-sky-400 border-sky-500/20",
+  "Google Sheets API": "bg-green-500/10 text-green-400 border-green-500/20",
 };
 
 export default function ProjectTech({ project }) {
@@ -43,6 +44,8 @@ export default function ProjectTech({ project }) {
     }, sectionRef);
     return () => ctx.revert();
   }, []);
+
+  if (!project.tech || !project.tech.length) return null;
 
   return (
     <section ref={sectionRef} className="relative py-16 px-6 md:px-10 max-w-7xl mx-auto">

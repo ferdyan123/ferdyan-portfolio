@@ -4,8 +4,13 @@ import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const SCREENSHOTS_LABEL = { id: 'Screenshots', en: 'Screenshots' };
+const VIEWS_LABEL = { id: 'tampilan', en: 'views' };
+const CLOSE_LABEL = { id: 'ESC untuk tutup', en: 'ESC to close' };
 
 const LABELS = {
   "home.png": "Dashboard",
@@ -41,6 +46,7 @@ export default function ProjectDocs({ project }) {
   const headerRef = useRef(null);
   const gridRef = useRef(null);
   const [lightbox, setLightbox] = useState(null);
+  const { lang } = useLanguage();
 
   const accent = project.coverColor ?? "#7F77DD";
   const screenshots = project.screenshots ?? [];
@@ -88,10 +94,10 @@ export default function ProjectDocs({ project }) {
           className="text-xs font-semibold uppercase tracking-widest"
           style={{ color: accent, fontFamily: "var(--font-mono)" }}
         >
-          Screenshots
+          {SCREENSHOTS_LABEL[lang] ?? SCREENSHOTS_LABEL.id}
         </span>
         <span className="text-xs text-white/20 ml-auto" style={{ fontFamily: "var(--font-mono)" }}>
-          {screenshots.length} views
+          {screenshots.length} {VIEWS_LABEL[lang] ?? VIEWS_LABEL.id}
         </span>
       </div>
 
@@ -154,7 +160,7 @@ export default function ProjectDocs({ project }) {
           </button>
           <div className="absolute bottom-5 left-1/2 -translate-x-1/2">
             <span className="text-xs text-white/40 px-3 py-1.5 rounded-full bg-white/5 border border-white/10" style={{ fontFamily: "var(--font-mono)" }}>
-              {getLabel(lightbox)} · ESC to close
+              {getLabel(lightbox)} · {CLOSE_LABEL[lang] ?? CLOSE_LABEL.id}
             </span>
           </div>
         </div>

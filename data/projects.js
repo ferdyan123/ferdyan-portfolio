@@ -8,13 +8,22 @@ export const projects = [
     role: 'Frontend Developer',
     duration: '7 hari',
     shortDesc: 'Landing page produk digital — 30+ prompt & agent AI untuk bantu mahasiswa Indonesia selesaikan skripsi dari judul sampai sidang.',
+    shortDesc_en: 'Digital product landing page — 30+ AI prompts and agents to help Indonesian students complete their thesis from topic to defense.',
     overview: `LulusAI adalah landing page untuk produk digital berupa kumpulan 30+ prompt & agent AI yang dirancang khusus untuk mahasiswa Indonesia yang sedang mengerjakan skripsi, KKP, atau tugas kuliah. Dibangun dengan pendekatan copywriting berbasis pain point — mulai dari staring kosong di depan laptop, revisi tanpa arah, hingga masalah Turnitin.
 
 Halaman ini menampilkan demo AI chat interaktif, breakdown fitur per bundle, pricing tier dengan bonus, dan social proof dari pengguna — semua dirangkai untuk mendorong konversi secara natural tanpa terasa hard-sell.`,
+    overview_en: `LulusAI is a landing page for a digital product offering 30+ AI prompts and agents designed specifically for Indonesian students working on their thesis, internship reports, or coursework. Built with pain-point-driven copywriting — from staring blankly at a laptop screen, to directionless revisions, to Turnitin headaches.
+
+The page features an interactive AI chat demo, a feature breakdown by bundle, pricing tiers with bonuses, and social proof from users — all structured to drive conversion naturally without feeling like a hard sell.`,
     highlights: [
       'Copywriting berbasis pain point mahasiswa — relatable dan converting',
       'Demo AI chat interaktif langsung di landing page',
       'Pricing tier + bonus section dengan desain yang mendorong keputusan beli',
+    ],
+    highlights_en: [
+      'Pain-point-driven copywriting for students — relatable and conversion-focused',
+      'Interactive AI chat demo built directly into the landing page',
+      'Pricing tiers with a bonus section designed to drive purchase decisions',
     ],
     tech: ['HTML/CSS', 'JavaScript'],
     liveUrl: '#',
@@ -39,13 +48,22 @@ Halaman ini menampilkan demo AI chat interaktif, breakdown fitur per bundle, pri
     role: 'Frontend Developer',
     duration: '7 hari',
     shortDesc: 'Landing page produk digital trading journal — 3 produk dalam 1 paket, copywriting persuasif, dan early bird pricing untuk forex trader Indonesia.',
+    shortDesc_en: 'Trading journal digital product landing page — 3 products in 1 bundle, persuasive copywriting, and early bird pricing for Indonesian forex traders.',
     overview: `TradeVision adalah landing page penjualan untuk produk digital yang menawarkan 3 produk dalam 1 paket: Trading Journal otomatis dengan 7 modul, Trading Plan siap pakai, dan E-Book Candlestick & Support Resistance. Ditargetkan kepada forex trader Indonesia dengan pendekatan "bukan mockup asal-asalan" — menampilkan tampilan asli produk langsung di halaman.
 
 Dibangun dengan strategi early bird pricing (22 slot sisa dari 50 slot), social proof dengan foto testimoni asli, countdown timer, perbandingan harga kompetitor, dan bonus eksklusif termasuk sesi konsultasi personal + grup komunitas + free update lifetime.`,
+    overview_en: `TradeVision is a sales landing page for a digital product bundling 3 products in 1 package: an automated Trading Journal with 7 modules, a ready-to-use Trading Plan, and an E-Book on Candlestick & Support/Resistance. Targeted at Indonesian forex traders with a "real product, not a mockup" approach — showcasing the actual product interface directly on the page.
+
+Built around an early bird pricing strategy (22 of 50 slots remaining), social proof through real testimonial photos, a countdown timer, competitor price comparisons, and exclusive bonuses including a personal consultation session, community group access, and lifetime free updates.`,
     highlights: [
       'Demo produk asli terintegrasi langsung di landing page — bukan mockup',
       'Early bird pricing + countdown slot tersisa untuk urgensi konversi',
       'Bundle 3 produk + 5 bonus eksklusif dengan social proof foto testimoni asli',
+    ],
+    highlights_en: [
+      'Real product demo integrated directly into the landing page — not a mockup',
+      'Early bird pricing with a slots-remaining countdown to drive urgency',
+      '3-product bundle plus 5 exclusive bonuses, backed by real testimonial photos',
     ],
     tech: ['HTML/CSS', 'JavaScript'],
     liveUrl: '#',
@@ -70,15 +88,26 @@ Dibangun dengan strategi early bird pricing (22 slot sisa dari 50 slot), social 
     role: 'Frontend Developer',
     duration: '10 hari',
     shortDesc: 'Website layanan qurban online — katalog paket hewan, alur pemesanan simpel, dan desain yang membangun kepercayaan calon pembeli.',
+    shortDesc_en: 'Online qurban service website — livestock package catalog, a simple ordering flow, and a design built to earn buyer trust.',
     overview: `Berkah Qurban adalah website bisnis untuk layanan qurban online yang dirancang untuk menjangkau calon pembeli menjelang musim Idul Adha. Dibangun dengan pendekatan "amanah, berkualitas, terpercaya" — setiap elemen desain diarahkan untuk membangun kepercayaan dan mempermudah proses pemesanan.
 
 Website ini menampilkan katalog paket hewan qurban (Kambing Muda, Sapi Premium, Paket Keluarga) dengan harga transparan, galeri foto hewan asli dengan tab filter per kategori, alur pemesanan 4 langkah yang jelas, serta testimoni pelanggan. Dilengkapi FAQ interaktif, form kontak, dan tombol WhatsApp floating untuk kemudahan komunikasi langsung.`,
+    overview_en: `Berkah Qurban is a business website for an online qurban (livestock sacrifice) service, built to reach buyers ahead of Eid al-Adha season. Designed around a "trustworthy, quality, reliable" approach — every design element is oriented toward building trust and simplifying the ordering process.
+
+The site features a livestock package catalog (Young Goat, Premium Cow, Family Package) with transparent pricing, a real photo gallery with category filter tabs, a clear 4-step ordering flow, and customer testimonials. It also includes an interactive FAQ, a contact form, and a floating WhatsApp button for direct communication.`,
     highlights: [
       'Katalog 3 paket hewan qurban dengan harga transparan dan detail spesifikasi',
       'Galeri foto asli dengan tab filter — Semua, Sapi, Kambing',
       'Alur pemesanan 4 langkah yang jelas: Pilih → Bayar → Konfirmasi → Proses',
       'FAQ accordion interaktif + form kontak + WhatsApp float button',
       'Desain berbasis kepercayaan — statistik pengalaman, sertifikasi halal, dan testimoni pelanggan',
+    ],
+    highlights_en: [
+      '3-package livestock catalog with transparent pricing and detailed specs',
+      'Real photo gallery with filter tabs — All, Cows, Goats',
+      'Clear 4-step ordering flow: Choose → Pay → Confirm → Process',
+      'Interactive FAQ accordion, contact form, and floating WhatsApp button',
+      'Trust-driven design — experience stats, halal certification, and customer testimonials',
     ],
     tech: ['HTML/CSS', 'JavaScript'],
     liveUrl: '#',
@@ -105,14 +134,24 @@ Website ini menampilkan katalog paket hewan qurban (Kambing Muda, Sapi Premium, 
     role: 'Frontend Developer',
     duration: '14 hari',
     shortDesc: 'Landing page penjualan trading journal otomatis — interactive mockup 5 modul, 2 ebook bonus, countdown timer, dan copywriting untuk forex trader Indonesia.',
+    shortDesc_en: 'Sales landing page for an automated trading journal — interactive 5-module mockup, 2 bonus ebooks, countdown timer, and copy tailored for Indonesian forex traders.',
     overview: `Journalyze Web adalah landing page penjualan produk digital JORNALYZE — trading journal otomatis untuk forex trader Indonesia. Dibangun dengan pendekatan dark premium menggunakan Tailwind CSS, font Bebas Neue & Syne, dan aksen gold.
 
 Halaman ini menampilkan interactive mockup langsung di halaman dengan 5 tab modul (Profil Risiko, Plan Harian, Jurnal Transaksi, Analisis Performa, Performa Bulanan), 2 ebook bonus berbentuk 3D book mockup (Candlestick & Support/Resistance), countdown timer urgensi, slider testimoni WA-style, pricing section dengan trust badge, dan FAQ accordion. Dilengkapi virtual purchase toast notification dan sticky CTA mobile.`,
+    overview_en: `Journalyze Web is the sales landing page for JORNALYZE — an automated trading journal built for Indonesian forex traders. Built with a dark, premium aesthetic using Tailwind CSS, Bebas Neue & Syne typefaces, and gold accents.
+
+The page features an interactive in-page mockup with 5 module tabs (Risk Profile, Daily Plan, Trade Journal, Performance Analysis, Monthly Performance), 2 bonus ebooks shown as 3D book mockups (Candlestick & Support/Resistance), an urgency countdown timer, a WhatsApp-style testimonial slider, a pricing section with trust badges, and an FAQ accordion — plus a virtual purchase toast notification and a sticky mobile CTA.`,
     highlights: [
       'Interactive mockup 5 modul langsung di halaman — Risiko, Plan, Jurnal, Analisis, Bulanan',
       '2 ebook bonus 3D mockup — Candlestick & Support/Resistance',
       'Countdown timer + virtual purchase toast notification untuk urgensi konversi',
       'Slider testimoni WA-style + FAQ accordion + sticky CTA mobile',
+    ],
+    highlights_en: [
+      'Interactive 5-module mockup built into the page — Risk, Plan, Journal, Analysis, Monthly',
+      '2 bonus ebooks shown as 3D mockups — Candlestick & Support/Resistance',
+      'Countdown timer and virtual purchase toast notifications to drive urgency',
+      'WhatsApp-style testimonial slider, FAQ accordion, and sticky mobile CTA',
     ],
     tech: ['HTML/CSS', 'JavaScript', 'Tailwind CSS'],
     liveUrl: '#',
@@ -138,14 +177,24 @@ Halaman ini menampilkan interactive mockup langsung di halaman dengan 5 tab modu
     role: 'Frontend Developer',
     duration: '10 hari',
     shortDesc: 'Company profile studio arsitektur profesional — dark luxury design, showcase portofolio karya, dan 6 layanan desain dari hunian hingga pengawasan konstruksi.',
+    shortDesc_en: 'Company profile for a professional architecture studio — dark luxury design, portfolio showcase, and 6 design services from residential to construction supervision.',
     overview: `ArchiNova Architects adalah company profile untuk studio arsitektur profesional yang berfokus pada keseimbangan antara estetika, fungsi ruang, dan efisiensi konstruksi. Dibangun dengan estetika dark luxury — kombinasi warna gelap dan aksen gold yang menciptakan kesan premium dan terpercaya.
 
 Website ini menampilkan 6 layanan utama (Desain Hunian, Interior, Ruang Komersial, Visualisasi 3D, Renovasi, dan Pengawasan Konstruksi), galeri portofolio karya terpilih, statistik studio (120+ proyek, 12 tahun pengalaman, 18+ arsitek), section tentang studio dengan pendekatan "harmoni & presisi", serta testimoni klien. Dilengkapi animasi scroll reveal, navbar sticky, dan CTA konsultasi gratis.`,
+    overview_en: `ArchiNova Architects is a company profile for a professional architecture studio focused on balancing aesthetics, spatial function, and construction efficiency. Built with a dark luxury aesthetic — dark tones combined with gold accents to create a premium, trustworthy impression.
+
+The site showcases 6 core services (Residential Design, Interior, Commercial Spaces, 3D Visualization, Renovation, and Construction Supervision), a curated portfolio gallery, studio statistics (120+ projects, 12 years of experience, 18+ architects), an about section built around a "harmony & precision" approach, and client testimonials. Complete with scroll-reveal animations, a sticky navbar, and a free consultation CTA.`,
     highlights: [
       'Dark luxury design — aksen gold #D4AF37 dengan tipografi Cormorant Garamond yang elegan',
       '6 layanan desain: Hunian, Interior, Komersial, 3D, Renovasi, Pengawasan Konstruksi',
       'Galeri portofolio karya terpilih dengan statistik studio (120+ proyek, 12 tahun)',
       'Scroll reveal animations + sticky navbar + CTA konsultasi gratis',
+    ],
+    highlights_en: [
+      'Dark luxury design — gold #D4AF37 accents with elegant Cormorant Garamond typography',
+      '6 design services: Residential, Interior, Commercial, 3D, Renovation, Construction Supervision',
+      'Curated portfolio gallery with studio stats (120+ projects, 12 years)',
+      'Scroll-reveal animations, sticky navbar, and free consultation CTA',
     ],
     tech: ['HTML/CSS', 'JavaScript'],
     liveUrl: '#',
@@ -171,15 +220,26 @@ Website ini menampilkan 6 layanan utama (Desain Hunian, Interior, Ruang Komersia
     role: 'Full-Stack Developer',
     duration: '3+ bulan',
     shortDesc: 'Trading journal suite lengkap untuk forex trader Indonesia — 7 modul, AI analysis, cloud sync Supabase, dan PWA push notification.',
+    shortDesc_en: 'A complete trading journal suite for Indonesian forex traders — 7 modules, AI analysis, Supabase cloud sync, and PWA push notifications.',
     overview: `Journalyze App adalah trading journal suite berbasis web yang dibangun dari nol khusus untuk forex trader Indonesia. Terdiri dari 7 modul terintegrasi: Manajemen Risiko dengan kalkulator otomatis, Proyeksi Harian berbasis compounding, Jurnal Transaksi lengkap, Filter & Analisa Performa, Recap Mingguan & Bulanan, hingga Berita Forex real-time dengan Economic Calendar.
 
 Dibangun dengan vanilla JS + Supabase sebagai backend — mendukung cloud sync antar device, sistem autentikasi berbasis lisensi key, live kurs USD/IDR/EUR, AI OCR via Gemini API untuk input trade dari screenshot MT5, serta PWA push notification untuk forex news high-impact.`,
+    overview_en: `Journalyze App is a web-based trading journal suite built from the ground up specifically for Indonesian forex traders. It consists of 7 integrated modules: Risk Management with an automatic calculator, Daily Projection based on compounding, a full Trade Journal, Performance Filter & Analysis, Weekly & Monthly Recap, and real-time Forex News with an Economic Calendar.
+
+Built with vanilla JS and Supabase as the backend — supporting cross-device cloud sync, a license-key-based authentication system, live USD/IDR/EUR exchange rates, AI OCR via the Gemini API to input trades directly from MT5 screenshots, and PWA push notifications for high-impact forex news.`,
     highlights: [
       '7 modul terintegrasi: Risiko, Plan, Jurnal, Filter, Mingguan, Bulanan, News',
       'AI OCR (Gemini API) — ekstrak data trade langsung dari screenshot MT5',
       'PWA push notification — alert otomatis saat ada berita forex high-impact',
       'Cloud sync via Supabase + sistem lisensi key untuk akses user',
       'Live kurs USD/IDR real-time dengan kalkulasi P&L multi-currency otomatis',
+    ],
+    highlights_en: [
+      '7 integrated modules: Risk, Plan, Journal, Filter, Weekly, Monthly, News',
+      'AI OCR (Gemini API) — extracts trade data directly from MT5 screenshots',
+      'PWA push notifications — automatic alerts for high-impact forex news',
+      'Supabase cloud sync with a license-key system for user access',
+      'Real-time USD/IDR exchange rates with automatic multi-currency P&L calculation',
     ],
     tech: ['HTML/CSS', 'JavaScript', 'Supabase', 'Chart.js', 'PWA', 'AI API'],
     liveUrl: '#',
@@ -207,14 +267,24 @@ Dibangun dengan vanilla JS + Supabase sebagai backend — mendukung cloud sync a
     role: 'Frontend Developer',
     duration: '10 hari',
     shortDesc: 'Company profile untuk brand kuliner & event premium — storytelling warisan rasa, galeri momen, dan menu unggulan dengan desain elegan.',
+    shortDesc_en: 'Company profile for a premium culinary and event brand — heritage-of-taste storytelling, a moments gallery, and signature menu items with an elegant design.',
     overview: `Savoria adalah website company profile untuk brand kuliner & event premium yang mengusung tema "Warisan Rasa, Tradisi yang Hidup". Dibangun dengan estetika warm & elegant — menonjolkan cerita di balik brand, bukan sekadar daftar menu.
 
 Website ini menampilkan section statistik pencapaian brand, showcase layanan premium (catering, event, dining experience), galeri momen yang telah diciptakan, menu unggulan pilihan, testimoni klien dengan slider, serta form pemesanan untuk mewujudkan momen impian klien. Dilengkapi animasi scroll reveal dan custom cursor untuk pengalaman browsing yang premium.`,
+    overview_en: `Savoria is a company profile website for a premium culinary and event brand built around the theme "Heritage of Taste, a Living Tradition." Designed with a warm, elegant aesthetic that highlights the story behind the brand rather than just listing a menu.
+
+The site features a brand achievement stats section, a showcase of premium services (catering, events, dining experiences), a gallery of moments the brand has created, a curated signature menu, a client testimonial slider, and a booking form to bring clients' dream moments to life. Complete with scroll-reveal animations and a custom cursor for a premium browsing experience.`,
     highlights: [
       'Storytelling brand "Warisan Rasa" dengan visual warm & elegant',
       'Galeri momen + menu unggulan showcase dengan foto berkualitas tinggi',
       'Slider testimoni klien + form pemesanan untuk konversi langsung',
       'Custom cursor + scroll reveal animations untuk pengalaman premium',
+    ],
+    highlights_en: [
+      '"Heritage of Taste" brand storytelling with a warm, elegant visual style',
+      'Moments gallery and signature menu showcase with high-quality photography',
+      'Client testimonial slider and booking form for direct conversion',
+      'Custom cursor and scroll-reveal animations for a premium experience',
     ],
     tech: ['HTML/CSS', 'JavaScript'],
     liveUrl: '#',

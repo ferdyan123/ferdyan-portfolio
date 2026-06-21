@@ -4,13 +4,21 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { usePageTransition } from "@/lib/usePageTransition";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const LABEL = {
+  id: 'Proyek Selanjutnya',
+  en: 'Next Project',
+}
 
 export default function NextProject({ project }) {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
   const { navigateTo } = usePageTransition();
+  const { lang } = useLanguage();
+  const shortDesc = lang === 'en' && project.shortDesc_en ? project.shortDesc_en : project.shortDesc;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,7 +74,7 @@ export default function NextProject({ project }) {
               {project.title}
             </h3>
             <p className="text-sm text-white/40 mt-2 max-w-md leading-relaxed">
-              {project.shortDesc}
+              {shortDesc}
             </p>
           </div>
 

@@ -4,8 +4,26 @@ import { useEffect, useRef } from "react";
 import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { siteConfig } from "@/data/projects";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
+
+const CTA_CONTENT = {
+  id: {
+    eyebrow: 'Tertarik?',
+    headlinePre: 'Mau Saya Bantu Wujudkan',
+    headlineAccent: 'Proyek Anda?',
+    sub: 'Saya bisa bantu Anda membangun produk serupa — atau yang lebih kompleks dari ini. Diskusi awal, gratis tanpa komitmen.',
+    button: 'Hubungi Saya via WhatsApp',
+  },
+  en: {
+    eyebrow: 'Interested?',
+    headlinePre: "Let's Build",
+    headlineAccent: 'Your Project Together',
+    sub: "I can help you build a similar product — or something more complex than this. Let's talk first, free with no commitment.",
+    button: 'Contact Me via WhatsApp',
+  },
+}
 
 function WhatsAppIcon() {
   return (
@@ -19,6 +37,8 @@ function WhatsAppIcon() {
 export default function ProjectCTA({ project }) {
   const sectionRef = useRef(null);
   const contentRef = useRef(null);
+  const { lang } = useLanguage();
+  const c = CTA_CONTENT[lang] ?? CTA_CONTENT.id;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -53,16 +73,16 @@ export default function ProjectCTA({ project }) {
         </div>
 
         <p className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD] mb-4" style={{ fontFamily: "var(--font-mono)" }}>
-          Tertarik?
+          {c.eyebrow}
         </p>
 
         <h2 className="text-3xl md:text-4xl font-black text-white mb-4 leading-tight">
-          Mau Gue Bantu Build{" "}
-          <span className="text-[#7F77DD]">Project Kamu?</span>
+          {c.headlinePre}{" "}
+          <span className="text-[#7F77DD]">{c.headlineAccent}</span>
         </h2>
 
         <p className="text-sm text-white/40 max-w-sm mx-auto mb-8 leading-relaxed">
-          Gue bisa bantu kamu build produk serupa — atau yang lebih kompleks dari ini. Diskusi dulu, gratis.
+          {c.sub}
         </p>
 
         <a
@@ -72,7 +92,7 @@ export default function ProjectCTA({ project }) {
           className="inline-flex items-center gap-3 px-6 py-3 bg-[#7F77DD] hover:bg-[#6d66cc] text-white font-semibold text-sm rounded-xl transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_0_24px_rgba(127,119,221,0.4)]"
         >
           <WhatsAppIcon />
-          Hubungi Gue via WhatsApp
+          {c.button}
         </a>
       </div>
     </section>

@@ -4,6 +4,7 @@ import { useEffect, useRef } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { gsap } from "@/lib/gsap";
+import { useLanguage } from "@/context/LanguageContext";
 
 function ArrowLeftIcon() {
   return (
@@ -21,6 +22,10 @@ export default function ProjectHero({ project }) {
 
   const accent = project.coverColor ?? "#7F77DD";
   const hasMockup = !!project.mockup;
+  const { lang } = useLanguage();
+  const shortDesc = lang === 'en' && project.shortDesc_en ? project.shortDesc_en : project.shortDesc;
+  const backLabel = lang === 'en' ? 'Back' : 'Kembali';
+  const backToWorksLabel = lang === 'en' ? 'Back to Works' : 'Kembali ke Karya';
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -66,7 +71,7 @@ export default function ProjectHero({ project }) {
             <span className="group-hover:-translate-x-1 transition-transform duration-200">
               <ArrowLeftIcon />
             </span>
-            Back
+            {backLabel}
           </Link>
         </div>
       ) : (
@@ -75,7 +80,7 @@ export default function ProjectHero({ project }) {
             <span className="group-hover:-translate-x-1 transition-transform duration-200">
               <ArrowLeftIcon />
             </span>
-            Back to Works
+            {backToWorksLabel}
           </Link>
         </div>
       )}
@@ -93,7 +98,7 @@ export default function ProjectHero({ project }) {
             {project.title}
           </h1>
           <p className="text-lg text-white/50 max-w-2xl leading-relaxed mb-10" style={{ opacity: 0 }}>
-            {project.shortDesc}
+            {shortDesc}
           </p>
           <div className="flex items-center gap-4" style={{ opacity: 0 }}>
             {project.liveUrl && project.liveUrl !== '#' && (
@@ -157,7 +162,7 @@ export default function ProjectHero({ project }) {
                 {project.title}
               </h2>
               <p className="text-base text-white/50 max-w-xl leading-relaxed">
-                {project.shortDesc}
+                {shortDesc}
               </p>
             </div>
 
