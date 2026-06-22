@@ -36,7 +36,11 @@ export default function PrdPage() {
   async function startChat() {
     setStage(STAGE.CHAT);
     setLoading(true);
-    await sendToAI([]);
+    const seed = [
+      { role: 'user', content: 'Hai! Aku mau mulai diskusi soal website yang ingin aku buat.' },
+    ];
+    setMessages(seed);
+    await sendToAI(seed);
   }
 
   function extractSummary(text) {
