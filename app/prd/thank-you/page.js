@@ -1,3 +1,5 @@
+'use client';
+
 export default function ThankYouPage() {
   return (
     <main className="thanks-wrap">
