@@ -6,6 +6,7 @@ import { gsap } from "@/lib/gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projects } from "@/data/projects";
 import { usePageTransition } from "@/lib/usePageTransition";
+import { useLanguage } from "@/context/LanguageContext";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -31,6 +32,23 @@ const TYPE_LABEL = {
   "Web Business":   { color: "text-yellow-400", dot: "bg-yellow-400" },
 };
 
+const LABELS = {
+  id: {
+    sectionTag: 'Selected Works',
+    heading: 'Project Pilihan',
+    headingAccent: 'Gue',
+    subtitle: 'Project pilihan yang gue bangun untuk membantu bisnis tampil lebih profesional di dunia digital.',
+    comingSoon: 'Coming Soon',
+  },
+  en: {
+    sectionTag: 'Selected Works',
+    heading: 'Featured',
+    headingAccent: 'Projects',
+    subtitle: 'A selection of projects I built to help businesses show up more professionally in the digital world.',
+    comingSoon: 'Coming Soon',
+  },
+};
+
 function ArrowIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -39,8 +57,9 @@ function ArrowIcon() {
   );
 }
 
-function ProjectCard({ project, index, onNavigate }) {
+function ProjectCard({ project, index, onNavigate, lang }) {
   const typeStyle = TYPE_LABEL[project.category] ?? TYPE_LABEL["Web App"];
+  const shortDesc = lang === 'en' && project.shortDesc_en ? project.shortDesc_en : project.shortDesc;
 
   return (
     <article
@@ -50,7 +69,6 @@ function ProjectCard({ project, index, onNavigate }) {
       {/* Thumbnail */}
       <div className="relative h-52 sm:h-60 overflow-hidden bg-[#0d0d0d] flex-shrink-0">
         {project.mockup ? (
-          /* Mockup image — full cover */
           <>
             <div
               className="absolute inset-0"
@@ -65,14 +83,12 @@ function ProjectCard({ project, index, onNavigate }) {
               className="object-cover transition-transform duration-700 group-hover:scale-105"
               sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
             />
-            {/* Gradasi gelap bawah biar nyambung ke body card */}
             <div
               className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none"
               style={{ background: "linear-gradient(to top, #111111 0%, transparent 100%)" }}
             />
           </>
         ) : (
-          /* Placeholder gradient */
           <>
             <div
               className="absolute inset-0 transition-transform duration-700 group-hover:scale-105"
@@ -114,10 +130,10 @@ function ProjectCard({ project, index, onNavigate }) {
           {project.title}
         </h3>
         <p className="text-sm text-white/50 leading-relaxed mb-5 line-clamp-2 flex-grow">
-          {project.shortDesc}
+          {shortDesc}
         </p>
 
-        {/* Tech tags — selalu di bawah */}
+        {/* Tech tags */}
         <div className="flex flex-wrap gap-1.5 mt-auto">
           {project.tech.slice(0, 5).map((tag) => {
             const colorClass = TECH_COLORS[tag] ?? "bg-white/5 text-white/40 border-white/10";
@@ -146,6 +162,8 @@ export default function Works() {
   const headerRef = useRef(null);
   const cardsRef = useRef([]);
   const { navigateTo } = usePageTransition();
+  const { lang } = useLanguage();
+  const t = LABELS[lang] ?? LABELS.en;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -176,28 +194,28 @@ export default function Works() {
         <div className="flex items-center gap-3 mb-4">
           <div className="w-6 h-px bg-[#7F77DD]" />
           <span className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD]" style={{ fontFamily: "var(--font-mono)" }}>
-            Selected Works
+            {t.sectionTag}
           </span>
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <h2 className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
-            Project Pilihan{" "}
+            {t.heading}{" "}
             <span className="relative">
-              Gue
+              {t.headingAccent}
               <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-[#7F77DD] to-transparent opacity-60" />
             </span>
           </h2>
           <p className="text-sm text-white/35 max-w-xs leading-relaxed">
-            Project pilihan yang gue bangun untuk membantu bisnis tampil lebih profesional di dunia digital.
+            {t.subtitle}
           </p>
         </div>
       </div>
 
-      {/* Grid — items-stretch biar semua card tingginya sama */}
+      {/* Grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-5 items-stretch">
         {projects.map((project, index) => (
           <div key={project.slug} ref={(el) => (cardsRef.current[index] = el)} className="flex">
-            <ProjectCard project={project} index={index} onNavigate={navigateTo} />
+            <ProjectCard project={project} index={index} onNavigate={navigateTo} lang={lang} />
           </div>
         ))}
       </div>
@@ -212,7 +230,7 @@ export default function Works() {
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />
                 </svg>
               </div>
-              <span className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>Coming Soon</span>
+              <span className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>{t.comingSoon}</span>
             </div>
           ))}
         </div>
