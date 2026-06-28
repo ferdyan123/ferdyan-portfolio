@@ -32,23 +32,6 @@ const TYPE_LABEL = {
   "Web Business":   { color: "text-yellow-400", dot: "bg-yellow-400" },
 };
 
-const LABELS = {
-  id: {
-    sectionTag: 'Selected Works',
-    heading: 'Project Pilihan',
-    headingAccent: 'Gue',
-    subtitle: 'Project pilihan yang gue bangun untuk membantu bisnis tampil lebih profesional di dunia digital.',
-    comingSoon: 'Coming Soon',
-  },
-  en: {
-    sectionTag: 'Selected Works',
-    heading: 'Featured',
-    headingAccent: 'Projects',
-    subtitle: 'A selection of projects I built to help businesses show up more professionally in the digital world.',
-    comingSoon: 'Coming Soon',
-  },
-};
-
 function ArrowIcon() {
   return (
     <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
@@ -162,8 +145,8 @@ export default function Works() {
   const headerRef = useRef(null);
   const cardsRef = useRef([]);
   const { navigateTo } = usePageTransition();
-  const { lang } = useLanguage();
-  const t = LABELS[lang] ?? LABELS.en;
+  const { lang, t } = useLanguage();
+  const w = t.works;
 
   useEffect(() => {
     const ctx = gsap.context(() => {
@@ -194,19 +177,19 @@ export default function Works() {
         <div className="flex items-center gap-3 mb-4">
           <div className="w-6 h-px bg-[#7F77DD]" />
           <span className="text-xs font-semibold uppercase tracking-widest text-[#7F77DD]" style={{ fontFamily: "var(--font-mono)" }}>
-            {t.sectionTag}
+            {w.eyebrow}
           </span>
         </div>
         <div className="flex flex-col md:flex-row md:items-end justify-between gap-6">
           <h2 className="text-4xl md:text-5xl font-black text-white leading-tight tracking-tight">
-            {t.heading}{" "}
+            {w.headline}{" "}
             <span className="relative">
-              {t.headingAccent}
+              {w.headlineAccent}
               <span className="absolute -bottom-1 left-0 w-full h-px bg-gradient-to-r from-[#7F77DD] to-transparent opacity-60" />
             </span>
           </h2>
           <p className="text-sm text-white/35 max-w-xs leading-relaxed">
-            {t.subtitle}
+            {w.sub}
           </p>
         </div>
       </div>
@@ -230,7 +213,7 @@ export default function Works() {
                   <path d="M12 5v14M5 12h14" strokeLinecap="round" />
                 </svg>
               </div>
-              <span className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>{t.comingSoon}</span>
+              <span className="text-xs" style={{ fontFamily: "var(--font-mono)" }}>{w.comingSoon}</span>
             </div>
           ))}
         </div>
