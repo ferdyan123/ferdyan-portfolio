@@ -19,16 +19,6 @@ const skillsData = [
   { name: 'SEO',        category: 'Tools',    color: '#4285F4', bg: 'rgba(66,133,244,0.15)',  floatDur: 5.3, svg: '<svg viewBox="0 0 24 24" fill="#4285F4"><path d="M12.48 10.92v3.28h7.84c-.24 1.84-.853 3.187-1.787 4.133-1.147 1.147-2.933 2.4-6.053 2.4-4.827 0-8.6-3.893-8.6-8.72s3.773-8.72 8.6-8.72c2.6 0 4.507 1.027 5.907 2.347l2.307-2.307C18.747 1.44 16.133 0 12.48 0 5.867 0 .307 5.387.307 12s5.56 12 12.173 12c3.573 0 6.267-1.173 8.373-3.36 2.16-2.16 2.84-5.213 2.84-7.667 0-.76-.053-1.467-.173-2.053H12.48z"/></svg>' },
 ]
 
-const MAX_PER_ROW = 6
-
-function buildRows(items) {
-  var rows = []
-  for (var i = 0; i < items.length; i += MAX_PER_ROW) {
-    rows.push(items.slice(i, i + MAX_PER_ROW))
-  }
-  return rows
-}
-
 function getDelay(indexInRow, rowLength, rowIndex) {
   var centerPos = (rowLength - 1) / 2
   var distCol = Math.abs(indexInRow - centerPos)
@@ -61,8 +51,8 @@ function SkillCard({ skill, indexInRow, rowLength, rowIndex, activeKey }) {
         animate={{ opacity: 1, y: 0, scale: 1 }}
         exit={{ opacity: 0, y: 8, scale: 0.94 }}
         transition={{ duration: 0.4, delay, ease: [0.22, 1, 0.36, 1] }}
-        className={'skill-card-' + floatId + ' group flex flex-col items-center gap-2 p-4 rounded-2xl border border-border cursor-default'}
-        style={{ background: '#111111', width: '110px', flexShrink: 0, willChange: 'transform' }}
+        className={'skill-card-' + floatId + ' group flex flex-col items-center gap-2 p-3 sm:p-4 rounded-2xl border border-border cursor-default'}
+        style={{ background: '#111111', width: 'clamp(80px, 20vw, 110px)', flexShrink: 0, willChange: 'transform' }}
         onMouseEnter={function(e) {
           var el = e.currentTarget
           el.style.background = skill.bg
@@ -78,11 +68,11 @@ function SkillCard({ skill, indexInRow, rowLength, rowIndex, activeKey }) {
         }}
       >
         <div
-          className="w-12 h-12 rounded-xl flex items-center justify-center p-2.5 transition-transform duration-300 group-hover:scale-110"
+          className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl flex items-center justify-center p-2 sm:p-2.5 transition-transform duration-300 group-hover:scale-110"
           style={{ background: skill.bg }}
           dangerouslySetInnerHTML={{ __html: skill.svg }}
         />
-        <p className="text-xs text-muted text-center font-mono group-hover:text-white transition-colors duration-300 whitespace-nowrap">
+        <p className="text-[10px] sm:text-xs text-muted text-center font-mono group-hover:text-white transition-colors duration-300 whitespace-nowrap">
           {skill.name}
         </p>
       </motion.div>
@@ -101,10 +91,17 @@ export default function Skills() {
     ? skillsData
     : skillsData.filter(function(sk) { return sk.category === active })
 
-  var rows = buildRows(displayed)
+  // Responsive rows: mobile 3-4, tablet 5, desktop 6
+  function buildRows(items, perRow) {
+    var rows = []
+    for (var i = 0; i < items.length; i += perRow) {
+      rows.push(items.slice(i, i + perRow))
+    }
+    return rows
+  }
 
   return (
-    <section id="skills" className="py-24 px-6 relative overflow-hidden" style={{ scrollMarginTop: '100px' }}>
+    <section id="skills" className="py-24 px-4 sm:px-6 relative overflow-hidden" style={{ scrollMarginTop: '100px' }}>
       <div className="absolute pointer-events-none" style={{ top: '20%', left: '10%', width: '300px', height: '300px', borderRadius: '50%', background: '#8b5cf6', filter: 'blur(120px)', opacity: 0.15, zIndex: 0 }} />
       <div className="absolute pointer-events-none" style={{ top: '50%', right: '5%', width: '350px', height: '350px', borderRadius: '50%', background: '#3b82f6', filter: 'blur(140px)', opacity: 0.12, zIndex: 0 }} />
       <div className="absolute pointer-events-none" style={{ bottom: '10%', left: '40%', width: '250px', height: '250px', borderRadius: '50%', background: '#06b6d4', filter: 'blur(100px)', opacity: 0.15, zIndex: 0 }} />
@@ -120,13 +117,13 @@ export default function Skills() {
           <p className="text-muted text-base">{s.sub}</p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-3 mb-10">
+        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-10">
           {categories.map(function(cat) {
             return (
               <button
                 key={cat}
                 onClick={function() { setActive(cat) }}
-                className={'px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ' + (active === cat ? 'bg-accent text-white shadow-lg' : 'bg-surface border border-border text-muted hover:border-accent hover:text-white')}
+                className={'px-4 sm:px-5 py-2 rounded-full text-sm font-medium transition-all duration-300 ' + (active === cat ? 'bg-accent text-white shadow-lg' : 'bg-surface border border-border text-muted hover:border-accent hover:text-white')}
               >
                 {cat}
               </button>
@@ -134,9 +131,50 @@ export default function Skills() {
           })}
         </div>
 
-        <div className="flex flex-col gap-3">
+        {/* Mobile: grid 3 kolom, Tablet: 4, Desktop: 6 */}
+        <div className="block sm:hidden">
+          <div className="grid grid-cols-3 gap-3 justify-items-center">
+            <AnimatePresence mode="popLayout">
+              {displayed.map(function(skill, i) {
+                return (
+                  <SkillCard
+                    key={active + '-' + skill.name}
+                    skill={skill}
+                    indexInRow={i % 3}
+                    rowLength={3}
+                    rowIndex={Math.floor(i / 3)}
+                    activeKey={active}
+                  />
+                )
+              })}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Tablet: grid 4 kolom */}
+        <div className="hidden sm:block md:hidden">
+          <div className="grid grid-cols-4 gap-3 justify-items-center">
+            <AnimatePresence mode="popLayout">
+              {displayed.map(function(skill, i) {
+                return (
+                  <SkillCard
+                    key={active + '-' + skill.name}
+                    skill={skill}
+                    indexInRow={i % 4}
+                    rowLength={4}
+                    rowIndex={Math.floor(i / 4)}
+                    activeKey={active}
+                  />
+                )
+              })}
+            </AnimatePresence>
+          </div>
+        </div>
+
+        {/* Desktop: baris flex center, max 6 per baris */}
+        <div className="hidden md:flex flex-col gap-3">
           <AnimatePresence mode="popLayout">
-            {rows.map(function(row, rowIndex) {
+            {buildRows(displayed, 6).map(function(row, rowIndex) {
               return (
                 <div key={active + '-row-' + rowIndex} className="flex justify-center gap-3">
                   {row.map(function(skill, indexInRow) {

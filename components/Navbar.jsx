@@ -112,7 +112,8 @@ export default function Navbar() {
             willChange: 'transform, box-shadow, border-radius, background, border',
           }}
         >
-          <div className="flex items-center gap-2">
+          {/* Top row */}
+          <div className="flex items-center justify-between gap-2">
 
             {/* Logo */}
             <a
@@ -122,7 +123,7 @@ export default function Navbar() {
               FS<span className="text-muted">.</span>
             </a>
 
-            {/* Nav links — flex-1 supaya center */}
+            {/* Nav links — desktop only, center */}
             <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
               {t.nav.links.map(function(link) {
                 return (
@@ -139,36 +140,17 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Right side — toggle bahasa + Hire Me */}
+            {/* Right side — desktop */}
             <div className="hidden md:flex items-center gap-2 flex-shrink-0">
-              {/* Language toggle */}
               <button
                 onClick={toggleLang}
                 aria-label="Toggle language"
                 className="flex items-center rounded-full border border-white/20 overflow-hidden text-xs font-mono font-semibold"
                 style={{ height: '28px' }}
               >
-                <span
-                  className="px-2.5 h-full flex items-center transition-colors duration-200"
-                  style={{
-                    background: lang === 'id' ? '#7F77DD' : 'transparent',
-                    color: lang === 'id' ? '#ffffff' : 'rgba(255,255,255,0.4)',
-                  }}
-                >
-                  ID
-                </span>
-                <span
-                  className="px-2.5 h-full flex items-center transition-colors duration-200"
-                  style={{
-                    background: lang === 'en' ? '#7F77DD' : 'transparent',
-                    color: lang === 'en' ? '#ffffff' : 'rgba(255,255,255,0.4)',
-                  }}
-                >
-                  EN
-                </span>
+                <span className="px-2.5 h-full flex items-center transition-colors duration-200" style={{ background: lang === 'id' ? '#7F77DD' : 'transparent', color: lang === 'id' ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>ID</span>
+                <span className="px-2.5 h-full flex items-center transition-colors duration-200" style={{ background: lang === 'en' ? '#7F77DD' : 'transparent', color: lang === 'en' ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>EN</span>
               </button>
-
-              {/* Hire Me */}
               <a
                 href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
                 target="_blank"
@@ -179,49 +161,54 @@ export default function Navbar() {
               </a>
             </div>
 
-            {/* Mobile hamburger */}
-            <button
-              onClick={function() { setMenuOpen(!menuOpen) }}
-              className="md:hidden flex flex-col gap-1.5 p-1"
-              aria-label="Toggle menu"
-            >
-              <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? 'rotate-45 translate-y-2' : '')} />
-              <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? 'opacity-0' : '')} />
-              <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? '-rotate-45 -translate-y-2' : '')} />
-            </button>
+            {/* Mobile right: lang toggle + hamburger */}
+            <div className="flex md:hidden items-center gap-3">
+              <button
+                onClick={toggleLang}
+                aria-label="Toggle language"
+                className="flex items-center rounded-full border border-white/20 overflow-hidden text-xs font-mono font-semibold"
+                style={{ height: '26px' }}
+              >
+                <span className="px-2 h-full flex items-center transition-colors duration-200" style={{ background: lang === 'id' ? '#7F77DD' : 'transparent', color: lang === 'id' ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>ID</span>
+                <span className="px-2 h-full flex items-center transition-colors duration-200" style={{ background: lang === 'en' ? '#7F77DD' : 'transparent', color: lang === 'en' ? '#ffffff' : 'rgba(255,255,255,0.4)' }}>EN</span>
+              </button>
+              <button
+                onClick={function() { setMenuOpen(!menuOpen) }}
+                className="flex flex-col gap-1.5 p-1"
+                aria-label="Toggle menu"
+              >
+                <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? 'rotate-45 translate-y-2' : '')} />
+                <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? 'opacity-0' : '')} />
+                <span className={'block w-5 h-px bg-white transition-all duration-300 ' + (menuOpen ? '-rotate-45 -translate-y-2' : '')} />
+              </button>
+            </div>
           </div>
 
-          {/* Mobile menu */}
-          <div className={'md:hidden overflow-hidden transition-all duration-300 ' + (menuOpen ? 'max-h-64 mt-4' : 'max-h-0')}>
-            <div className="flex flex-col gap-4 pb-2">
+          {/* Mobile menu dropdown */}
+          <div className={'md:hidden overflow-hidden transition-all duration-300 ' + (menuOpen ? 'max-h-80 mt-4' : 'max-h-0')}>
+            <div className="flex flex-col gap-1 pb-2">
               {t.nav.links.map(function(link) {
                 return (
                   <a
                     key={link.href}
                     href={link.href}
                     onClick={function() { setMenuOpen(false) }}
-                    className="text-sm text-muted hover:text-white transition-colors"
+                    className="text-sm text-muted hover:text-white transition-colors py-2 px-1 border-b border-white/5"
                   >
                     {link.label}
                   </a>
                 )
               })}
-              <button
-                onClick={toggleLang}
-                className="flex items-center rounded-full border border-white/20 overflow-hidden text-xs font-mono font-semibold w-fit"
-                style={{ height: '28px' }}
-              >
-                <span className="px-2.5 h-full flex items-center" style={{ background: lang === 'id' ? '#7F77DD' : 'transparent', color: lang === 'id' ? '#fff' : 'rgba(255,255,255,0.4)' }}>ID</span>
-                <span className="px-2.5 h-full flex items-center" style={{ background: lang === 'en' ? '#7F77DD' : 'transparent', color: lang === 'en' ? '#fff' : 'rgba(255,255,255,0.4)' }}>EN</span>
-              </button>
-              <a
-                href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-accent"
-              >
-                {t.nav.hireMe}
-              </a>
+              <div className="pt-3">
+                <a
+                  href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/40 text-sm text-accent"
+                >
+                  {t.nav.hireMe}
+                </a>
+              </div>
             </div>
           </div>
         </nav>
