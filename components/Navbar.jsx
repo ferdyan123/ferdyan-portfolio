@@ -36,7 +36,7 @@ export default function Navbar() {
       const widthPx = lerp(startW, endW, ep)
       const paddingV = lerp(12, 10, ep)
       const paddingH = lerp(24, 16, ep)
-      const bgAlpha = lerp(0, 0.8, ep)
+      const bgAlpha = lerp(0, 0.85, ep)
       const blurVal = lerp(0, 24, ep)
       const borderR = lerp(0, 139, ep)
       const borderG = lerp(0, 92, ep)
@@ -48,7 +48,6 @@ export default function Navbar() {
       const insetA = lerp(0, 0.1, ep)
 
       wrap.style.width = widthPx + 'px'
-      nav.style.background = 'rgba(10,10,10,' + bgAlpha + ')'
       nav.style.backdropFilter = 'blur(' + blurVal + 'px)'
       nav.style.WebkitBackdropFilter = 'blur(' + blurVal + 'px)'
       nav.style.border = '1px solid rgba(' + borderR + ',' + borderG + ',' + borderB + ',' + borderA + ')'
@@ -102,17 +101,17 @@ export default function Navbar() {
         <nav
           ref={navRef}
           style={{
-            background: 'transparent',
+            background: 'rgba(10,10,10,0.92)',
             border: '1px solid transparent',
             borderRadius: '0px',
             boxShadow: 'none',
             transform: 'translateY(0px) scale(1)',
-            padding: '12px 24px',
+            padding: '12px 20px',
             transition: 'none',
-            willChange: 'transform, box-shadow, border-radius, background, border',
+            willChange: 'transform, box-shadow, border-radius, border',
           }}
         >
-          {/* Top row */}
+          {/* Top bar */}
           <div className="flex items-center justify-between gap-2">
 
             {/* Logo */}
@@ -123,7 +122,7 @@ export default function Navbar() {
               FS<span className="text-muted">.</span>
             </a>
 
-            {/* Nav links — desktop only, center */}
+            {/* Desktop nav links — center */}
             <div className="hidden md:flex items-center gap-1 flex-1 justify-center">
               {t.nav.links.map(function(link) {
                 return (
@@ -140,7 +139,12 @@ export default function Navbar() {
               })}
             </div>
 
-            {/* Right side — desktop */}
+            {/* Mobile center — tagline singkat */}
+            <span className="flex md:hidden flex-1 justify-center text-xs text-white/20 font-mono tracking-widest truncate px-3">
+              Web · App · AI
+            </span>
+
+            {/* Desktop right */}
             <div className="hidden md:flex items-center gap-2 flex-shrink-0">
               <button
                 onClick={toggleLang}
@@ -162,7 +166,7 @@ export default function Navbar() {
             </div>
 
             {/* Mobile right: lang toggle + hamburger */}
-            <div className="flex md:hidden items-center gap-3">
+            <div className="flex md:hidden items-center gap-3 flex-shrink-0">
               <button
                 onClick={toggleLang}
                 aria-label="Toggle language"
@@ -184,33 +188,35 @@ export default function Navbar() {
             </div>
           </div>
 
-          {/* Mobile menu dropdown */}
-          <div className={'md:hidden overflow-hidden transition-all duration-300 ' + (menuOpen ? 'max-h-80 mt-4' : 'max-h-0')}>
-            <div className="flex flex-col gap-1 pb-2">
-              {t.nav.links.map(function(link) {
-                return (
+          {/* Mobile dropdown — solid background biar orb Hero ga tembus */}
+          {menuOpen && (
+            <div className="md:hidden mt-3 rounded-2xl overflow-hidden" style={{ background: 'rgba(10,10,10,0.98)', border: '1px solid rgba(255,255,255,0.08)' }}>
+              <div className="flex flex-col py-2">
+                {t.nav.links.map(function(link) {
+                  return (
+                    <a
+                      key={link.href}
+                      href={link.href}
+                      onClick={function() { setMenuOpen(false) }}
+                      className="text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors px-5 py-3"
+                    >
+                      {link.label}
+                    </a>
+                  )
+                })}
+                <div className="mx-5 my-3 pt-3 border-t border-white/8">
                   <a
-                    key={link.href}
-                    href={link.href}
-                    onClick={function() { setMenuOpen(false) }}
-                    className="text-sm text-muted hover:text-white transition-colors py-2 px-1 border-b border-white/5"
+                    href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-full bg-accent text-white text-sm font-medium w-full justify-center"
                   >
-                    {link.label}
+                    {t.nav.hireMe}
                   </a>
-                )
-              })}
-              <div className="pt-3">
-                <a
-                  href={formatWhatsApp(siteConfig.whatsapp, siteConfig.whatsappMessage)}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center gap-2 px-4 py-2 rounded-full border border-accent/40 text-sm text-accent"
-                >
-                  {t.nav.hireMe}
-                </a>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </nav>
       </div>
     </div>
