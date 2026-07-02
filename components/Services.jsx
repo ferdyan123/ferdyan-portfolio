@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { services } from '@/data/projects'
 import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -52,9 +51,9 @@ export default function Services() {
           <p className="text-muted text-base md:text-lg max-w-xl leading-relaxed">{s.sub}</p>
         </div>
 
-        {/* Data tetap dari projects.js — tidak berubah */}
+        {/* Cards — dari t.services.list */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
-          {services.map((service, i) => (
+          {s.list.map((service, i) => (
             <div
               key={service.title}
               ref={(el) => (cardsRef.current[i] = el)}

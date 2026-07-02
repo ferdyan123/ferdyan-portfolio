@@ -7,6 +7,7 @@ export const projects = [
     coverColor: '#7F77DD',
     role: 'Frontend Developer',
     duration: '7 hari',
+    duration_en: '7 days',
     shortDesc: 'Landing page produk digital — 30+ prompt & agent AI untuk bantu mahasiswa Indonesia selesaikan skripsi dari judul sampai sidang.',
     shortDesc_en: 'Digital product landing page — 30+ AI prompts and agents to help Indonesian students complete their thesis from topic to defense.',
     overview: `LulusAI adalah landing page untuk produk digital berupa kumpulan 30+ prompt & agent AI yang dirancang khusus untuk mahasiswa Indonesia yang sedang mengerjakan skripsi, KKP, atau tugas kuliah. Dibangun dengan pendekatan copywriting berbasis pain point — mulai dari staring kosong di depan laptop, revisi tanpa arah, hingga masalah Turnitin.
@@ -47,6 +48,7 @@ The page features an interactive AI chat demo, a feature breakdown by bundle, pr
     coverColor: '#06B6D4',
     role: 'Frontend Developer',
     duration: '7 hari',
+    duration_en: '7 days',
     shortDesc: 'Landing page produk digital trading journal — 3 produk dalam 1 paket, copywriting persuasif, dan early bird pricing untuk forex trader Indonesia.',
     shortDesc_en: 'Trading journal digital product landing page — 3 products in 1 bundle, persuasive copywriting, and early bird pricing for Indonesian forex traders.',
     overview: `TradeVision adalah landing page penjualan untuk produk digital yang menawarkan 3 produk dalam 1 paket: Trading Journal otomatis dengan 7 modul, Trading Plan siap pakai, dan E-Book Candlestick & Support Resistance. Ditargetkan kepada forex trader Indonesia dengan pendekatan "bukan mockup asal-asalan" — menampilkan tampilan asli produk langsung di halaman.
@@ -87,6 +89,7 @@ Built around an early bird pricing strategy (22 of 50 slots remaining), social p
     coverColor: '#F59E0B',
     role: 'Frontend Developer',
     duration: '10 hari',
+    duration_en: '10 days',
     shortDesc: 'Website layanan qurban online — katalog paket hewan, alur pemesanan simpel, dan desain yang membangun kepercayaan calon pembeli.',
     shortDesc_en: 'Online qurban service website — livestock package catalog, a simple ordering flow, and a design built to earn buyer trust.',
     overview: `Berkah Qurban adalah website bisnis untuk layanan qurban online yang dirancang untuk menjangkau calon pembeli menjelang musim Idul Adha. Dibangun dengan pendekatan "amanah, berkualitas, terpercaya" — setiap elemen desain diarahkan untuk membangun kepercayaan dan mempermudah proses pemesanan.
@@ -133,6 +136,7 @@ The site features a livestock package catalog (Young Goat, Premium Cow, Family P
     coverColor: '#3ECF8E',
     role: 'Frontend Developer',
     duration: '14 hari',
+    duration_en: '14 days',
     shortDesc: 'Landing page penjualan trading journal otomatis — interactive mockup 5 modul, 2 ebook bonus, countdown timer, dan copywriting untuk forex trader Indonesia.',
     shortDesc_en: 'Sales landing page for an automated trading journal — interactive 5-module mockup, 2 bonus ebooks, countdown timer, and copy tailored for Indonesian forex traders.',
     overview: `Journalyze Web adalah landing page penjualan produk digital JORNALYZE — trading journal otomatis untuk forex trader Indonesia. Dibangun dengan pendekatan dark premium menggunakan Tailwind CSS, font Bebas Neue & Syne, dan aksen gold.
@@ -176,6 +180,7 @@ The page features an interactive in-page mockup with 5 module tabs (Risk Profile
     coverColor: '#D4AF37',
     role: 'Frontend Developer',
     duration: '10 hari',
+    duration_en: '10 days',
     shortDesc: 'Company profile studio arsitektur profesional — dark luxury design, showcase portofolio karya, dan 6 layanan desain dari hunian hingga pengawasan konstruksi.',
     shortDesc_en: 'Company profile for a professional architecture studio — dark luxury design, portfolio showcase, and 6 design services from residential to construction supervision.',
     overview: `ArchiNova Architects adalah company profile untuk studio arsitektur profesional yang berfokus pada keseimbangan antara estetika, fungsi ruang, dan efisiensi konstruksi. Dibangun dengan estetika dark luxury — kombinasi warna gelap dan aksen gold yang menciptakan kesan premium dan terpercaya.
@@ -219,6 +224,7 @@ The site showcases 6 core services (Residential Design, Interior, Commercial Spa
     coverColor: '#88CE02',
     role: 'Full-Stack Developer',
     duration: '3+ bulan',
+    duration_en: '3+ months',
     shortDesc: 'Trading journal suite lengkap untuk forex trader Indonesia — 7 modul, AI analysis, cloud sync Supabase, dan PWA push notification.',
     shortDesc_en: 'A complete trading journal suite for Indonesian forex traders — 7 modules, AI analysis, Supabase cloud sync, and PWA push notifications.',
     overview: `Journalyze App adalah trading journal suite berbasis web yang dibangun dari nol khusus untuk forex trader Indonesia. Terdiri dari 7 modul terintegrasi: Manajemen Risiko dengan kalkulator otomatis, Proyeksi Harian berbasis compounding, Jurnal Transaksi lengkap, Filter & Analisa Performa, Recap Mingguan & Bulanan, hingga Berita Forex real-time dengan Economic Calendar.
@@ -266,6 +272,7 @@ Built with vanilla JS and Supabase as the backend — supporting cross-device cl
     coverColor: '#EC4899',
     role: 'Frontend Developer',
     duration: '10 hari',
+    duration_en: '10 days',
     shortDesc: 'Company profile untuk brand kuliner & event premium — storytelling warisan rasa, galeri momen, dan menu unggulan dengan desain elegan.',
     shortDesc_en: 'Company profile for a premium culinary and event brand — heritage-of-taste storytelling, a moments gallery, and signature menu items with an elegant design.',
     overview: `Savoria adalah website company profile untuk brand kuliner & event premium yang mengusung tema "Warisan Rasa, Tradisi yang Hidup". Dibangun dengan estetika warm & elegant — menonjolkan cerita di balik brand, bukan sekadar daftar menu.
@@ -305,10 +312,10 @@ The site features a brand achievement stats section, a showcase of premium servi
 
 
 export const stats = [
-  { value: '8+', label: 'Projects Completed' },
-  { value: '98%', label: 'Client Satisfaction' },
-  { value: '7–14', label: 'Days Avg. Delivery' },
-  { value: '1yr', label: 'Experience' },
+  { value: '8+', label: 'Projects Completed', label_en: 'Projects Completed' },
+  { value: '98%', label: 'Kepuasan Klien', label_en: 'Client Satisfaction' },
+  { value: '7–14', label: 'Hari Rata-rata Pengerjaan', label_en: 'Days Avg. Delivery' },
+  { value: '1yr', label: 'Pengalaman', label_en: 'Experience' },
 ]
 
 export const skills = [
@@ -329,42 +336,58 @@ export const services = [
   {
     icon: '🖥️',
     title: 'Landing Page Development',
+    title_en: 'Landing Page Development',
     desc: 'Halaman marketing yang didesain untuk konversi — visual menarik, copywriting tepat, dan CTA yang mendorong aksi.',
+    desc_en: 'Marketing pages built to convert — compelling visuals, sharp copywriting, and CTAs that drive action.',
   },
   {
     icon: '🏢',
     title: 'Company Profile Website',
+    title_en: 'Company Profile Website',
     desc: 'Website profesional yang merepresentasikan bisnis kamu secara kredibel dan berkesan di mata calon klien.',
+    desc_en: 'Professional websites that represent your business credibly and leave a lasting impression on potential clients.',
   },
   {
     icon: '⚙️',
     title: 'Web Application',
+    title_en: 'Web Application',
     desc: 'Aplikasi web fungsional dengan fitur kompleks — dari dashboard, sistem manajemen, hingga tools berbasis AI.',
+    desc_en: 'Functional web apps with complex features — from dashboards and management systems to AI-powered tools.',
   },
   {
     icon: '🛒',
     title: 'Web Business',
+    title_en: 'Web Business',
     desc: 'Website untuk bisnis online — toko, katalog, atau sistem pemesanan yang mudah dikelola dan digunakan.',
+    desc_en: 'Websites for online businesses — stores, catalogs, or ordering systems that are easy to manage and use.',
   },
   {
     icon: '🔄',
     title: 'Redesign Website',
+    title_en: 'Website Redesign',
     desc: 'Transformasi website lama menjadi tampilan modern, cepat, dan sesuai standar UI/UX terkini.',
+    desc_en: 'Transform your outdated website into a modern, fast, and polished experience that meets current UI/UX standards.',
   },
   {
     icon: '🔧',
     title: 'Maintenance & Support',
+    title_en: 'Maintenance & Support',
     desc: 'Pemeliharaan rutin, perbaikan bug, dan update konten agar website kamu selalu berjalan optimal.',
+    desc_en: 'Routine maintenance, bug fixes, and content updates to keep your website running at its best.',
   },
   {
     icon: '🤖',
     title: 'Integrasi AI ke Website',
+    title_en: 'AI Integration',
     desc: 'Tambahkan kecerdasan buatan ke website kamu — chatbot, analisis otomatis, atau fitur AI lainnya.',
+    desc_en: 'Add artificial intelligence to your website — chatbots, automated analysis, or any other AI-powered feature.',
   },
   {
     icon: '🏗️',
     title: 'Membangun Sistem',
+    title_en: 'System Architecture',
     desc: 'Arsitektur sistem digital dari nol — database, API, autentikasi, dan infrastruktur yang scalable.',
+    desc_en: 'Digital systems built from scratch — database design, APIs, authentication, and scalable infrastructure.',
   },
 ]
 
@@ -372,27 +395,37 @@ export const whyMe = [
   {
     icon: '⚡',
     title: 'Fast Delivery',
+    title_en: 'Fast Delivery',
     desc: 'Estimasi pengerjaan 7–14 hari kerja dengan timeline yang transparan sejak awal.',
+    desc_en: 'Estimated turnaround of 7–14 working days, with a transparent timeline from day one.',
   },
   {
     icon: '✨',
     title: 'Modern Design',
+    title_en: 'Modern Design',
     desc: 'Desain clean, premium, dan UI modern yang bikin website kamu stand out dari kompetitor.',
+    desc_en: 'Clean, premium aesthetics and modern UI that make your website stand out from the competition.',
   },
   {
     icon: '📱',
     title: 'Mobile First',
+    title_en: 'Mobile First',
     desc: 'Setiap pixel dioptimalkan untuk semua device — dari mobile hingga desktop.',
+    desc_en: 'Every pixel optimized for all devices — from mobile to desktop.',
   },
   {
     icon: '🤖',
     title: 'AI-Powered Workflow',
+    title_en: 'AI-Powered Workflow',
     desc: 'Berkolaborasi dengan AI untuk hasil yang lebih detail, konsisten, dan efisien.',
+    desc_en: 'Collaborating with AI to deliver results that are more detailed, consistent, and efficient.',
   },
   {
     icon: '🤝',
     title: 'Long-Term Support',
+    title_en: 'Long-Term Support',
     desc: 'Pendampingan setelah launch — kamu tidak ditinggal begitu project selesai.',
+    desc_en: "Support after launch — you're not left on your own once the project is done.",
   },
 ]
 
@@ -400,49 +433,100 @@ export const testimonials = [
   {
     name: 'Rizky Pratama',
     role: 'Founder, Warung Digital',
+    role_en: 'Founder, Warung Digital',
     text: 'Hasil kerjanya jauh di atas ekspektasi. Website-nya clean, cepat, dan langsung bisa dipakai. Yang paling berkesan adalah responsif banget selama proses — revisi cepat, komunikasinya enak.',
+    text_en: 'The result was way beyond my expectations. The website is clean, fast, and ready to use right away. What stood out most was how responsive he was throughout — revisions were quick and communication was smooth.',
     avatar: null,
     rating: 5,
   },
   {
     name: 'Anisa Rahayu',
     role: 'Owner, Savoria Culinary',
+    role_en: 'Owner, Savoria Culinary',
     text: 'Saya minta desainnya elegan dan mencerminkan brand kami — dan itu yang saya dapat. Ferdyan ngerti visi saya tanpa harus dijelasin panjang lebar. Hasilnya profesional banget, klien-klien saya langsung notice.',
+    text_en: "I asked for something elegant that reflected our brand — and that's exactly what I got. Ferdyan understood my vision without needing a lengthy explanation. The result is incredibly professional, and my clients noticed right away.",
     avatar: null,
     rating: 5,
   },
   {
     name: 'Dani Kurniawan',
     role: 'Trader & Content Creator',
+    role_en: 'Trader & Content Creator',
     text: 'Journalyze beneran ngubah cara saya trading. Bukan cuma tampilannya yang keren, tapi fitur-fiturnya tepat sasaran. Kerasa banget dibikin sama orang yang ngerti kebutuhan trader.',
+    text_en: "Journalyze genuinely changed how I trade. It's not just about the look — the features hit exactly the right spots. You can tell it was built by someone who actually understands what traders need.",
     avatar: null,
     rating: 5,
   },
 ]
 
 export const process = [
-  { step: '01', title: 'Konsultasi', desc: 'Diskusi kebutuhan, tujuan, dan ekspektasi project secara mendetail.' },
-  { step: '02', title: 'Planning', desc: 'Menyusun scope, timeline, dan tech stack yang paling sesuai.' },
-  { step: '03', title: 'Design', desc: 'Mockup dan wireframe untuk memastikan arah visual sebelum coding.' },
-  { step: '04', title: 'Development', desc: 'Coding dengan standar produksi — clean, scalable, dan performant.' },
-  { step: '05', title: 'Revisi', desc: 'Review bersama dan penyesuaian hingga hasilnya sesuai ekspektasi.' },
-  { step: '06', title: 'Launch', desc: 'Deploy ke server dan pastikan semua berjalan sempurna.' },
-  { step: '07', title: 'Support', desc: 'Pendampingan pasca-launch untuk maintenance dan pengembangan lanjutan.' },
+  {
+    step: '01',
+    title: 'Konsultasi',
+    title_en: 'Consultation',
+    desc: 'Diskusi kebutuhan, tujuan, dan ekspektasi project secara mendetail.',
+    desc_en: 'A detailed discussion of your needs, goals, and project expectations.',
+  },
+  {
+    step: '02',
+    title: 'Planning',
+    title_en: 'Planning',
+    desc: 'Menyusun scope, timeline, dan tech stack yang paling sesuai.',
+    desc_en: 'Defining scope, timeline, and the best-fit tech stack for your project.',
+  },
+  {
+    step: '03',
+    title: 'Design',
+    title_en: 'Design',
+    desc: 'Mockup dan wireframe untuk memastikan arah visual sebelum coding.',
+    desc_en: 'Mockups and wireframes to lock in the visual direction before any code is written.',
+  },
+  {
+    step: '04',
+    title: 'Development',
+    title_en: 'Development',
+    desc: 'Coding dengan standar produksi — clean, scalable, dan performant.',
+    desc_en: 'Production-grade coding — clean, scalable, and performant.',
+  },
+  {
+    step: '05',
+    title: 'Revisi',
+    title_en: 'Revision',
+    desc: 'Review bersama dan penyesuaian hingga hasilnya sesuai ekspektasi.',
+    desc_en: 'A collaborative review and adjustments until the result matches your expectations.',
+  },
+  {
+    step: '06',
+    title: 'Launch',
+    title_en: 'Launch',
+    desc: 'Deploy ke server dan pastikan semua berjalan sempurna.',
+    desc_en: 'Deployed to the server with everything verified and running perfectly.',
+  },
+  {
+    step: '07',
+    title: 'Support',
+    title_en: 'Support',
+    desc: 'Pendampingan pasca-launch untuk maintenance dan pengembangan lanjutan.',
+    desc_en: 'Post-launch support for ongoing maintenance and future development.',
+  },
 ]
 
 export const socials = [
-  { platform: 'Instagram', url: '#', icon: 'instagram' },
-  { platform: 'GitHub', url: 'https://github.com/ferdyan123', icon: 'github' },
-  { platform: 'LinkedIn', url: '#', icon: 'linkedin' },
+  { platform: "Instagram", url: "https://www.instagram.com/frdyyy_s/", icon: "instagram" },
+  { platform: "GitHub", url: "https://github.com/ferdyan123", icon: "github" },
+  { platform: "LinkedIn", url: "https://www.linkedin.com/in/ferdyan-syahwal-b40b53413", icon: "linkedin" },
 ]
 
 export const siteConfig = {
   name: 'Ferdyan Syahwal',
   tagline: "I Don't Just Build Websites. I Build Digital Experiences.",
   subTagline: 'Membantu bisnis & personal brand bangun website modern, cepat, dan profesional yang meningkatkan kredibilitas serta memberikan pengalaman terbaik bagi pengunjung.',
+  subTagline_en: 'Helping businesses and personal brands build modern, fast, and professional websites that boost credibility and deliver the best experience for every visitor.',
   whatsapp: '6281311973602',
   whatsappMessage: 'Halo Ferdyan, saya tertarik untuk diskusi project!',
+  whatsappMessage_en: 'Hi Ferdyan, I would like to discuss a project!',
   domain: 'ferdyan.my.id',
   metaTitle: 'Ferdyan Syahwal — Digital Product Builder',
   metaDescription: 'Web developer & digital product builder. Spesialis landing page, web app, dan integrasi AI untuk pasar Indonesia.',
+  metaDescription_en: 'Web developer & digital product builder. Specializing in landing pages, web apps, and AI integration.',
 }

@@ -3,7 +3,6 @@
 import { useEffect, useRef } from 'react'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { whyMe, stats } from '@/data/projects'
 import { useLanguage } from '@/context/LanguageContext'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -57,9 +56,9 @@ export default function WhyMe() {
             <p className="text-muted text-base md:text-lg leading-relaxed max-w-md">{w.sub}</p>
           </div>
 
-          {/* Stats — data dari projects.js */}
+          {/* Stats — dari t.hero.stats */}
           <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4">
-            {stats.map((stat, i) => (
+            {t.hero.stats.map((stat, i) => (
               <div
                 key={stat.label}
                 ref={(el) => (statsRef.current[i] = el)}
@@ -73,9 +72,9 @@ export default function WhyMe() {
           </div>
         </div>
 
-        {/* Cards — data dari projects.js */}
+        {/* Cards — dari t.whyme.cards */}
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
-          {whyMe.map((item, i) => (
+          {w.cards.map((item, i) => (
             <div
               key={item.title}
               ref={(el) => (cardsRef.current[i] = el)}
