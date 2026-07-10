@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
+import { useRouter, usePathname } from 'next/navigation'
 import { siteConfig } from '@/data/projects'
 import { formatWhatsApp } from '@/lib/utils'
 import { useLanguage } from '@/context/LanguageContext'
@@ -12,6 +13,22 @@ export default function Navbar() {
   const rafRef = useRef(0)
   const progRef = useRef(0)
   const { lang, toggleLang, t } = useLanguage()
+  const router = useRouter()
+  const pathname = usePathname()
+
+  function handleNavClick(e, href) {
+    e.preventDefault()
+    setMenuOpen(false)
+    const sectionId = href.replace('#', '')
+    if (pathname === '/') {
+      // Sudah di homepage — smooth scroll langsung
+      const el = document.getElementById(sectionId)
+      if (el) el.scrollIntoView({ behavior: 'smooth' })
+    } else {
+      // Di halaman lain — navigasi ke home dulu, bawa hash
+      router.push('/?scrollTo=' + sectionId)
+    }
+  }
 
   useEffect(() => {
     const THRESHOLD = 60
@@ -31,8 +48,8 @@ export default function Navbar() {
       const scale = lerp(1, 0.96, ep)
       const translateY = lerp(0, 14, ep)
       const vw = window.innerWidth
-      const startW = vw - 32
-      const endW = Math.min(920, vw - 32)
+      const startW = Math.min(800, vw - 32)
+      const endW = Math.min(680, vw - 32)
       const widthPx = lerp(startW, endW, ep)
       const paddingV = lerp(12, 10, ep)
       const paddingH = lerp(24, 16, ep)
@@ -129,7 +146,8 @@ export default function Navbar() {
                   <a
                     key={link.href}
                     href={link.href}
-                    className="px-3 py-1.5 text-sm text-muted rounded-lg whitespace-nowrap"
+                    onClick={function(e) { handleNavClick(e, link.href) }}
+                    className="px-3 py-1.5 text-sm text-muted rounded-lg whitespace-nowrap cursor-pointer"
                     onMouseEnter={handleMouseEnter}
                     onMouseLeave={handleMouseLeave}
                   >
@@ -197,8 +215,8 @@ export default function Navbar() {
                     <a
                       key={link.href}
                       href={link.href}
-                      onClick={function() { setMenuOpen(false) }}
-                      className="text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors px-5 py-3"
+                      onClick={function(e) { handleNavClick(e, link.href) }}
+                      className="text-sm text-white/60 hover:text-white hover:bg-white/5 transition-colors px-5 py-3 cursor-pointer"
                     >
                       {link.label}
                     </a>

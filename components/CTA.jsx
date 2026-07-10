@@ -84,7 +84,14 @@ export default function CTA() {
           <span className="text-[#7F77DD]">{c.headlineAccent}</span>
         </h2>
 
-        <p className="text-base text-white/45 max-w-md mx-auto mb-10 leading-relaxed">{c.sub}</p>
+        <p className="text-base text-white/45 max-w-md mx-auto mb-6 leading-relaxed">{c.sub}</p>
+
+        {c.guaranteeBadge && (
+          <div className="inline-flex items-center gap-2 px-4 py-2 mb-10 rounded-full border border-[#7F77DD]/25 bg-[#7F77DD]/8 text-xs sm:text-sm text-white/80 font-medium">
+            <span>🛡️</span>
+            <span>{c.guaranteeBadge}</span>
+          </div>
+        )}
 
         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
           <a
@@ -103,6 +110,27 @@ export default function CTA() {
             {c.ctaSecondary}
           </a>
         </div>
+
+        {c.processSteps && (
+          <div className="mb-12">
+            <p className="text-[11px] uppercase tracking-widest text-white/30 font-mono mb-4">{c.processLabel}</p>
+            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
+              {c.processSteps.map((step, i) => (
+                <div key={step.step} className="flex items-center gap-2">
+                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/8 bg-white/[0.02]">
+                    <span className="font-mono text-[#7F77DD] text-xs">{step.step}</span>
+                    <span className="text-white/60 text-xs font-medium">{step.title}</span>
+                  </div>
+                  {i < c.processSteps.length - 1 && <span className="text-white/15 text-xs">→</span>}
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {c.guaranteeDetail && (
+          <p className="text-[11px] text-white/25 max-w-lg mx-auto mb-10 leading-relaxed">{c.guaranteeDetail}</p>
+        )}
 
         <div className="flex items-center justify-center gap-3">
           {socials.map((social) => {

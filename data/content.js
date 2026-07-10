@@ -4,11 +4,8 @@ export const content = {
       links: [
         { label: 'Karya', href: '#works' },
         { label: 'Tentang', href: '#about' },
-        { label: 'Layanan', href: '#services' },
-        { label: 'Kenapa Saya', href: '#why-me' },
         { label: 'Keahlian', href: '#skills' },
         { label: 'Testimoni', href: '#testimonials' },
-        { label: 'Proses', href: '#process' },
         { label: 'Kontak', href: '#contact' },
       ],
       hireMe: 'Hire Saya',
@@ -52,10 +49,13 @@ export const content = {
       paragraph1End: '.',
       paragraph2:
         'Dengan pengalaman membangun dan mengkomersialkan produk digital untuk pasar Indonesia, saya memadukan sense desain yang kuat dengan pendekatan teknis yang solid — dibantu workflow berbasis AI untuk hasil yang lebih detail dan premium.',
+      paragraph3:
+        'Cakupan kerja saya mulai dari landing page, company profile, hingga web app dan integrasi AI — dikerjakan penuh dari desain sampai deployment, dengan pendampingan setelah proyek launch.',
       highlights: [
         { label: 'Digital Product Builder', icon: '📦' },
         { label: 'Freelancer', icon: '🧑‍💻' },
         { label: 'UI-Focused Developer', icon: '✦' },
+        { label: 'Fast Delivery (7–14 hari)', icon: '⚡' },
       ],
       ctaLink: 'Diskusikan proyek Anda dengan saya',
       aiBadgeTitle: 'AI-Augmented Developer',
@@ -175,9 +175,9 @@ export const content = {
       sub: 'Kepercayaan klien adalah aset terbesar. Berikut yang mereka rasakan setelah bekerja sama.',
       items: [
         {
-          name: 'Rizky Pratama',
-          role: 'Founder, Warung Digital',
-          text: 'Hasil kerjanya jauh di atas ekspektasi. Website-nya clean, cepat, dan langsung bisa dipakai. Yang paling berkesan, Ferdyan sangat responsif selama proses — revisi cepat, komunikasinya enak.',
+          name: 'Muhammad Nur Ilham',
+          role: 'Founder, SwimTrack',
+          text: 'SwimTrack bener-bener ngebantu banget operasional les renang saya. Sebelumnya semua manual — sekarang absensi, pendaftaran murid, sampai pengiriman kartu kehadiran ke orang tua bisa dilakukan dalam satu sistem. Ferdyan ngerti kebutuhan saya dari awal, pengerjaannya cepat dan hasilnya rapi.',
           rating: 5,
         },
         {
@@ -187,9 +187,9 @@ export const content = {
           rating: 5,
         },
         {
-          name: 'Dani Kurniawan',
-          role: 'Trader & Content Creator',
-          text: 'Journalyze benar-benar mengubah cara saya trading. Bukan hanya tampilannya yang keren, tapi fitur-fiturnya tepat sasaran. Terasa dibuat oleh orang yang memahami kebutuhan trader.',
+          name: 'Ferdyan Syahwal',
+          role: 'Trader & Founder Journalyze',
+          text: 'Journalyze beda dari journal trading lain yang pernah saya coba. Fiturnya pas banget sama kebutuhan trader harian — dari kalkulasi risiko otomatis, recap mingguan, sampai analisis AI yang beneran ngebantu evaluasi. Keliatan banget dibuat oleh orang yang ngerti dunia trading, bukan cuma developer biasa.',
           rating: 5,
         },
       ],
@@ -222,13 +222,22 @@ export const content = {
       sub: 'Punya ide, bisnis, atau proyek yang ingin diwujudkan? Saya siap membantu Anda mewujudkannya.',
       ctaPrimary: 'Hubungi Saya',
       ctaSecondary: 'Lihat Portfolio',
+      processLabel: 'Cara Kerja Singkat',
+      processSteps: [
+        { step: '01', title: 'Konsultasi' },
+        { step: '02', title: 'Development' },
+        { step: '03', title: 'Revisi' },
+        { step: '04', title: 'Launch & Support' },
+      ],
+      guaranteeBadge: 'Garansi revisi 5 hari + bebas error sistem 4 bulan',
+      guaranteeDetail:
+        'Setiap proyek termasuk garansi revisi & penyesuaian minor selama 5 hari setelah serah terima, dan garansi bebas error sistem selama 4 bulan (di luar isu hosting/domain pihak ketiga atau perubahan kode oleh pihak lain).',
     },
     footer: {
       tagline: 'Membangun pengalaman digital — bukan sekadar website.',
       navLinks: [
         { label: 'Karya', href: '#works' },
         { label: 'Tentang', href: '#about' },
-        { label: 'Layanan', href: '#services' },
         { label: 'Keahlian', href: '#skills' },
         { label: 'Testimoni', href: '#testimonials' },
         { label: 'Kontak', href: '#contact' },
@@ -243,11 +252,8 @@ export const content = {
       links: [
         { label: 'Works', href: '#works' },
         { label: 'About', href: '#about' },
-        { label: 'Services', href: '#services' },
-        { label: 'Why Me', href: '#why-me' },
         { label: 'Skills', href: '#skills' },
         { label: 'Testimonials', href: '#testimonials' },
-        { label: 'Process', href: '#process' },
         { label: 'Contact', href: '#contact' },
       ],
       hireMe: 'Hire Me',
@@ -291,10 +297,13 @@ export const content = {
       paragraph1End: '.',
       paragraph2:
         'With experience building and commercializing digital products for the Indonesian market, I combine strong design sense with a solid technical approach — supported by an AI-driven workflow for more detailed, premium results.',
+      paragraph3:
+        'My scope of work ranges from landing pages and company profiles to web apps and AI integrations — handled end-to-end from design to deployment, with support after launch.',
       highlights: [
         { label: 'Digital Product Builder', icon: '📦' },
         { label: 'Freelancer', icon: '🧑‍💻' },
         { label: 'UI-Focused Developer', icon: '✦' },
+        { label: 'Fast Delivery (7–14 days)', icon: '⚡' },
       ],
       ctaLink: "Let's discuss your project",
       aiBadgeTitle: 'AI-Augmented Developer',
@@ -414,9 +423,9 @@ export const content = {
       sub: 'Client trust is my greatest asset. Here is what they experienced after working together.',
       items: [
         {
-          name: 'Rizky Pratama',
-          role: 'Founder, Warung Digital',
-          text: 'The result exceeded my expectations. The website is clean, fast, and ready to use right away. What stood out most was how responsive Ferdyan was throughout the process — quick revisions and great communication.',
+          name: 'Muhammad Nur Ilham',
+          role: 'Founder, SwimTrack',
+          text: 'SwimTrack genuinely transformed how I run my swimming lessons. Everything used to be manual — now attendance, student registration, and sending monthly attendance cards to parents all happen in one system. Ferdyan understood what I needed from the start, delivered fast, and the result is clean.',
           rating: 5,
         },
         {
@@ -426,9 +435,9 @@ export const content = {
           rating: 5,
         },
         {
-          name: 'Dani Kurniawan',
-          role: 'Trader & Content Creator',
-          text: 'Journalyze genuinely changed the way I trade. It is not just the design that stands out, but how on-point every feature is. You can tell it was built by someone who understands what traders actually need.',
+          name: 'Ferdyan Syahwal',
+          role: 'Trader & Founder of Journalyze',
+          text: 'Journalyze is unlike any trading journal I have tried before. Every feature hits exactly what a daily trader needs — from automatic risk calculation and weekly recaps to AI-powered analysis that actually helps with evaluation. You can tell it was built by someone who genuinely understands trading, not just a developer.',
           rating: 5,
         },
       ],
@@ -461,13 +470,22 @@ export const content = {
       sub: 'Have an idea, business, or project you want to bring to life? I would be glad to help.',
       ctaPrimary: 'Contact Me',
       ctaSecondary: 'View Portfolio',
+      processLabel: 'How I Work',
+      processSteps: [
+        { step: '01', title: 'Consultation' },
+        { step: '02', title: 'Development' },
+        { step: '03', title: 'Revision' },
+        { step: '04', title: 'Launch & Support' },
+      ],
+      guaranteeBadge: '5-day revision guarantee + 4-month system error coverage',
+      guaranteeDetail:
+        'Every project includes a 5-day revision & minor-adjustment guarantee after handover, plus 4 months of system error coverage (excluding third-party hosting/domain issues or code changes made by other parties).',
     },
     footer: {
       tagline: 'Building digital experiences — not just websites.',
       navLinks: [
         { label: 'Works', href: '#works' },
         { label: 'About', href: '#about' },
-        { label: 'Services', href: '#services' },
         { label: 'Skills', href: '#skills' },
         { label: 'Testimonials', href: '#testimonials' },
         { label: 'Contact', href: '#contact' },

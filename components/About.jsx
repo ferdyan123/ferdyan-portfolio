@@ -63,8 +63,12 @@ export default function About() {
               {a.paragraph1End}
             </p>
 
-            <p className="text-muted leading-relaxed mb-10 text-base md:text-lg">
+            <p className="text-muted leading-relaxed mb-6 text-base md:text-lg">
               {a.paragraph2}
+            </p>
+
+            <p className="text-muted leading-relaxed mb-10 text-base md:text-lg">
+              {a.paragraph3}
             </p>
 
             <div className="flex flex-wrap gap-3 mb-10">

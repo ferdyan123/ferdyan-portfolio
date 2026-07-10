@@ -1,0 +1,537 @@
+diff --git a/app/page.js b/app/page.js
+index 4afa525..482f1c7 100644
+--- a/app/page.js
++++ b/app/page.js
+@@ -2,11 +2,8 @@ import Navbar from '@/components/Navbar'
+ import Hero from '@/components/Hero'
+ import Works from '@/components/Works'
+ import About from '@/components/About'
+-import Services from '@/components/Services'
+-import WhyMe from '@/components/WhyMe'
+ import Skills from '@/components/Skills'
+ import Testimonials from '@/components/Testimonials'
+-import Process from '@/components/Process'
+ import CTA from '@/components/CTA'
+ import Footer from '@/components/Footer'
+ 
+@@ -17,11 +14,8 @@ export default function Home() {
+       <Hero />
+       <Works />
+       <About />
+-      <Services />
+-      <WhyMe />
+       <Skills />
+       <Testimonials />
+-      <Process />
+       <CTA />
+       <Footer />
+     </main>
+diff --git a/components/About.jsx b/components/About.jsx
+index 7289bb8..587cba1 100644
+--- a/components/About.jsx
++++ b/components/About.jsx
+@@ -63,10 +63,14 @@ export default function About() {
+               {a.paragraph1End}
+             </p>
+ 
+-            <p className="text-muted leading-relaxed mb-10 text-base md:text-lg">
++            <p className="text-muted leading-relaxed mb-6 text-base md:text-lg">
+               {a.paragraph2}
+             </p>
+ 
++            <p className="text-muted leading-relaxed mb-10 text-base md:text-lg">
++              {a.paragraph3}
++            </p>
++
+             <div className="flex flex-wrap gap-3 mb-10">
+               {a.highlights.map((h) => (
+                 <span
+diff --git a/components/CTA.jsx b/components/CTA.jsx
+index 3aed2a2..d92f39b 100644
+--- a/components/CTA.jsx
++++ b/components/CTA.jsx
+@@ -84,7 +84,14 @@ export default function CTA() {
+           <span className="text-[#7F77DD]">{c.headlineAccent}</span>
+         </h2>
+ 
+-        <p className="text-base text-white/45 max-w-md mx-auto mb-10 leading-relaxed">{c.sub}</p>
++        <p className="text-base text-white/45 max-w-md mx-auto mb-6 leading-relaxed">{c.sub}</p>
++
++        {c.guaranteeBadge && (
++          <div className="inline-flex items-center gap-2 px-4 py-2 mb-10 rounded-full border border-[#7F77DD]/25 bg-[#7F77DD]/8 text-xs sm:text-sm text-white/80 font-medium">
++            <span>🛡️</span>
++            <span>{c.guaranteeBadge}</span>
++          </div>
++        )}
+ 
+         <div className="flex flex-col sm:flex-row items-center justify-center gap-4 mb-12">
+           <a
+@@ -104,6 +111,27 @@ export default function CTA() {
+           </a>
+         </div>
+ 
++        {c.processSteps && (
++          <div className="mb-12">
++            <p className="text-[11px] uppercase tracking-widest text-white/30 font-mono mb-4">{c.processLabel}</p>
++            <div className="flex flex-wrap items-center justify-center gap-x-2 gap-y-3">
++              {c.processSteps.map((step, i) => (
++                <div key={step.step} className="flex items-center gap-2">
++                  <div className="flex items-center gap-2 px-3 py-1.5 rounded-lg border border-white/8 bg-white/[0.02]">
++                    <span className="font-mono text-[#7F77DD] text-xs">{step.step}</span>
++                    <span className="text-white/60 text-xs font-medium">{step.title}</span>
++                  </div>
++                  {i < c.processSteps.length - 1 && <span className="text-white/15 text-xs">→</span>}
++                </div>
++              ))}
++            </div>
++          </div>
++        )}
++
++        {c.guaranteeDetail && (
++          <p className="text-[11px] text-white/25 max-w-lg mx-auto mb-10 leading-relaxed">{c.guaranteeDetail}</p>
++        )}
++
+         <div className="flex items-center justify-center gap-3">
+           {socials.map((social) => {
+             const Icon = ICON_MAP[social.icon];
+diff --git a/components/Process.jsx b/components/Process.jsx
+deleted file mode 100644
+index fbf4e2f..0000000
+--- a/components/Process.jsx
++++ /dev/null
+@@ -1,119 +0,0 @@
+-'use client'
+-
+-import { useEffect, useRef } from 'react'
+-import { gsap } from 'gsap'
+-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+-import { useLanguage } from '@/context/LanguageContext'
+-
+-gsap.registerPlugin(ScrollTrigger)
+-
+-export default function Process() {
+-  const sectionRef = useRef(null)
+-  const headingRef = useRef(null)
+-  const stepsRef = useRef([])
+-  const lineRef = useRef(null)
+-  const { t } = useLanguage()
+-  const p = t.process
+-
+-  useEffect(() => {
+-    const ctx = gsap.context(() => {
+-      gsap.fromTo(headingRef.current, { opacity: 0, y: 30 }, {
+-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+-        scrollTrigger: { trigger: headingRef.current, start: 'top 80%' },
+-      })
+-      gsap.fromTo(lineRef.current, { scaleX: 0 }, {
+-        scaleX: 1, duration: 1.2, ease: 'power2.inOut',
+-        scrollTrigger: { trigger: sectionRef.current, start: 'top 60%' },
+-      })
+-      gsap.fromTo(stepsRef.current, { opacity: 0, y: 40 }, {
+-        opacity: 1, y: 0, duration: 0.55, ease: 'power2.out', stagger: 0.1,
+-        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%' },
+-      })
+-    }, sectionRef)
+-    return () => ctx.revert()
+-  }, [])
+-
+-  return (
+-    <section id="process" ref={sectionRef} className="relative py-28 px-6 overflow-hidden">
+-      <div className="absolute inset-0 bg-surface/20 pointer-events-none" />
+-      <div
+-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[700px] h-[400px] rounded-full opacity-[0.03] pointer-events-none"
+-        style={{ background: 'radial-gradient(ellipse, #7F77DD 0%, transparent 70%)' }}
+-      />
+-
+-      <div className="relative max-w-6xl mx-auto">
+-        <div className="flex items-center gap-3 mb-12">
+-          <span className="font-mono text-accent text-sm tracking-widest uppercase">08</span>
+-          <div className="h-px w-12 bg-accent opacity-40" />
+-          <span className="font-mono text-muted text-sm tracking-widest uppercase">{p.eyebrow}</span>
+-        </div>
+-
+-        <div ref={headingRef} style={{ opacity: 0 }} className="mb-16">
+-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+-            {p.headline}{' '}
+-            <span className="text-accent">{p.headlineAccent}</span>
+-          </h2>
+-          <p className="text-muted text-base md:text-lg max-w-xl leading-relaxed">{p.sub}</p>
+-        </div>
+-
+-        {/* Desktop horizontal */}
+-        <div className="hidden lg:block">
+-          <div className="relative mb-2">
+-            <div className="absolute top-5 left-[3.5%] right-[3.5%] h-px bg-border" />
+-            <div ref={lineRef} className="absolute top-5 left-[3.5%] right-[3.5%] h-px bg-accent/40 origin-left" style={{ scaleX: 0 }} />
+-          </div>
+-          <div className="grid grid-cols-7 gap-3 pt-2">
+-            {p.steps.map((item, i) => (
+-              <div key={item.step} ref={(el) => (stepsRef.current[i] = el)} style={{ opacity: 0 }} className="group flex flex-col items-center text-center">
+-                <div className="relative w-10 h-10 rounded-full border border-border bg-surface flex items-center justify-center mb-5 group-hover:border-accent/60 group-hover:bg-accent/10 transition-all duration-300 z-10">
+-                  <span className="font-mono text-xs font-bold text-accent">{item.step}</span>
+-                  <div className="absolute inset-0 rounded-full border border-accent/20 scale-0 group-hover:scale-150 opacity-0 group-hover:opacity-0 transition-all duration-500" />
+-                </div>
+-                <h4 className="text-white font-semibold text-sm mb-2">{item.title}</h4>
+-                <p className="text-muted text-xs leading-relaxed">{item.desc}</p>
+-              </div>
+-            ))}
+-          </div>
+-        </div>
+-
+-        {/* Mobile vertical */}
+-        <div className="lg:hidden relative">
+-          <div className="absolute left-5 top-0 bottom-0 w-px bg-border" />
+-          <div className="flex flex-col gap-8">
+-            {p.steps.map((item, i) => (
+-              <div
+-                key={item.step}
+-                ref={(el) => { if (!stepsRef.current.includes(el)) stepsRef.current.push(el) }}
+-                style={{ opacity: 0 }}
+-                className="group relative flex items-start gap-6 pl-14"
+-              >
+-                <div className="absolute left-0 w-10 h-10 rounded-full border border-border bg-surface flex items-center justify-center flex-shrink-0 group-hover:border-accent/60 group-hover:bg-accent/10 transition-all duration-300 z-10">
+-                  <span className="font-mono text-xs font-bold text-accent">{item.step}</span>
+-                </div>
+-                <div className="pt-2">
+-                  <h4 className="text-white font-semibold text-sm mb-1">{item.title}</h4>
+-                  <p className="text-muted text-xs leading-relaxed">{item.desc}</p>
+-                </div>
+-              </div>
+-            ))}
+-          </div>
+-        </div>
+-
+-        <div className="mt-14 flex flex-col sm:flex-row items-start sm:items-center gap-4 p-5 rounded-2xl border border-border/50 bg-surface/50">
+-          <div className="flex items-center gap-3 flex-shrink-0">
+-            <div className="w-2 h-2 rounded-full bg-green-400 animate-pulse" />
+-            <span className="text-white text-sm font-medium">{p.availableBadge}</span>
+-          </div>
+-          <div className="hidden sm:block h-4 w-px bg-border" />
+-          <p className="text-muted text-xs">
+-            {p.noteStart}{' '}
+-            <span className="text-white font-mono">{p.noteValue1}</span>{' '}
+-            {p.noteMid}{' '}
+-            <span className="text-white font-mono">{p.noteValue2}</span>
+-            {p.noteEnd}
+-          </p>
+-        </div>
+-      </div>
+-    </section>
+-  )
+-}
+\ No newline at end of file
+diff --git a/components/Services.jsx b/components/Services.jsx
+deleted file mode 100644
+index d0fc9fc..0000000
+--- a/components/Services.jsx
++++ /dev/null
+@@ -1,90 +0,0 @@
+-'use client'
+-
+-import { useEffect, useRef } from 'react'
+-import { gsap } from 'gsap'
+-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+-import { useLanguage } from '@/context/LanguageContext'
+-
+-gsap.registerPlugin(ScrollTrigger)
+-
+-export default function Services() {
+-  const sectionRef = useRef(null)
+-  const headingRef = useRef(null)
+-  const cardsRef = useRef([])
+-  const { t } = useLanguage()
+-  const s = t.services
+-
+-  useEffect(() => {
+-    const ctx = gsap.context(() => {
+-      gsap.fromTo(headingRef.current, { opacity: 0, y: 30 }, {
+-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+-        scrollTrigger: { trigger: headingRef.current, start: 'top 80%' },
+-      })
+-      gsap.fromTo(cardsRef.current, { opacity: 0, y: 40 }, {
+-        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.08,
+-        scrollTrigger: { trigger: sectionRef.current, start: 'top 65%' },
+-      })
+-    }, sectionRef)
+-    return () => ctx.revert()
+-  }, [])
+-
+-  return (
+-    <section id="services" ref={sectionRef} className="relative py-28 px-6 overflow-hidden">
+-      <div className="absolute inset-0 bg-surface/30 pointer-events-none" />
+-      <div
+-        className="absolute bottom-0 right-0 w-[500px] h-[500px] rounded-full opacity-[0.03] pointer-events-none"
+-        style={{ background: 'radial-gradient(circle, #7F77DD 0%, transparent 70%)' }}
+-      />
+-
+-      <div className="relative max-w-6xl mx-auto">
+-        <div className="flex items-center gap-3 mb-12">
+-          <span className="font-mono text-accent text-sm tracking-widest uppercase">04</span>
+-          <div className="h-px w-12 bg-accent opacity-40" />
+-          <span className="font-mono text-muted text-sm tracking-widest uppercase">{s.eyebrow}</span>
+-        </div>
+-
+-        <div ref={headingRef} style={{ opacity: 0 }} className="mb-16">
+-          <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+-            {s.headline}{' '}
+-            <span className="text-accent">{s.headlineAccent}</span>
+-          </h2>
+-          <p className="text-muted text-base md:text-lg max-w-xl leading-relaxed">{s.sub}</p>
+-        </div>
+-
+-        {/* Cards — dari t.services.list */}
+-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+-          {s.list.map((service, i) => (
+-            <div
+-              key={service.title}
+-              ref={(el) => (cardsRef.current[i] = el)}
+-              style={{ opacity: 0 }}
+-              className="group relative p-6 rounded-2xl border border-border bg-surface hover:border-accent/40 hover:bg-accent/5 transition-all duration-300 cursor-default"
+-            >
+-              <div className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+-                style={{ background: 'radial-gradient(circle at 50% 0%, rgba(127,119,221,0.06) 0%, transparent 70%)' }}
+-              />
+-              <div className="w-11 h-11 rounded-xl bg-bg border border-border flex items-center justify-center text-xl mb-4 group-hover:border-accent/30 transition-colors duration-300">
+-                {service.icon}
+-              </div>
+-              <h3 className="text-white font-semibold text-sm mb-2 leading-snug">{service.title}</h3>
+-              <p className="text-muted text-xs leading-relaxed">{service.desc}</p>
+-              <div className="absolute bottom-0 left-6 right-6 h-px bg-accent scale-x-0 group-hover:scale-x-100 transition-transform duration-300 origin-left rounded-full" />
+-            </div>
+-          ))}
+-        </div>
+-
+-        <div className="mt-12 flex items-center gap-4">
+-          <a
+-            href={`https://wa.me/6281311973602?text=${encodeURIComponent('Halo Ferdyan, saya tertarik untuk diskusi project!')}`}
+-            target="_blank"
+-            rel="noopener noreferrer"
+-            className="inline-flex items-center gap-2 px-6 py-3 rounded-full bg-accent text-white text-sm font-semibold hover:bg-accent-dim transition-colors duration-200"
+-          >
+-            {s.ctaText} <span>→</span>
+-          </a>
+-          <span className="text-muted text-xs font-mono">{s.ctaNote}</span>
+-        </div>
+-      </div>
+-    </section>
+-  )
+-}
+\ No newline at end of file
+diff --git a/components/WhyMe.jsx b/components/WhyMe.jsx
+deleted file mode 100644
+index 42b3e88..0000000
+--- a/components/WhyMe.jsx
++++ /dev/null
+@@ -1,107 +0,0 @@
+-'use client'
+-
+-import { useEffect, useRef } from 'react'
+-import { gsap } from 'gsap'
+-import { ScrollTrigger } from 'gsap/ScrollTrigger'
+-import { useLanguage } from '@/context/LanguageContext'
+-
+-gsap.registerPlugin(ScrollTrigger)
+-
+-export default function WhyMe() {
+-  const sectionRef = useRef(null)
+-  const headingRef = useRef(null)
+-  const statsRef = useRef([])
+-  const cardsRef = useRef([])
+-  const { t } = useLanguage()
+-  const w = t.whyme
+-
+-  useEffect(() => {
+-    const ctx = gsap.context(() => {
+-      gsap.fromTo(headingRef.current, { opacity: 0, y: 30 }, {
+-        opacity: 1, y: 0, duration: 0.8, ease: 'power3.out',
+-        scrollTrigger: { trigger: headingRef.current, start: 'top 80%' },
+-      })
+-      gsap.fromTo(statsRef.current, { opacity: 0, y: 20 }, {
+-        opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1,
+-        scrollTrigger: { trigger: headingRef.current, start: 'top 75%' },
+-      })
+-      gsap.fromTo(cardsRef.current, { opacity: 0, y: 40 }, {
+-        opacity: 1, y: 0, duration: 0.6, ease: 'power2.out', stagger: 0.1,
+-        scrollTrigger: { trigger: sectionRef.current, start: 'top 60%' },
+-      })
+-    }, sectionRef)
+-    return () => ctx.revert()
+-  }, [])
+-
+-  return (
+-    <section id="why-me" ref={sectionRef} className="relative py-28 px-6 overflow-hidden">
+-      <div
+-        className="absolute top-0 left-0 w-[400px] h-[400px] rounded-full opacity-[0.05] pointer-events-none"
+-        style={{ background: 'radial-gradient(circle, #7F77DD 0%, transparent 70%)' }}
+-      />
+-
+-      <div className="relative max-w-6xl mx-auto">
+-        <div className="flex items-center gap-3 mb-12">
+-          <span className="font-mono text-accent text-sm tracking-widest uppercase">05</span>
+-          <div className="h-px w-12 bg-accent opacity-40" />
+-          <span className="font-mono text-muted text-sm tracking-widest uppercase">{w.eyebrow}</span>
+-        </div>
+-
+-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-16 items-end">
+-          <div ref={headingRef} style={{ opacity: 0 }}>
+-            <h2 className="text-4xl md:text-5xl font-bold tracking-tight mb-4">
+-              {w.headline}{' '}
+-              <span className="text-accent">{w.headlineAccent}</span>
+-            </h2>
+-            <p className="text-muted text-base md:text-lg leading-relaxed max-w-md">{w.sub}</p>
+-          </div>
+-
+-          {/* Stats — dari t.hero.stats */}
+-          <div className="grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-2 xl:grid-cols-4 gap-4">
+-            {t.hero.stats.map((stat, i) => (
+-              <div
+-                key={stat.label}
+-                ref={(el) => (statsRef.current[i] = el)}
+-                style={{ opacity: 0 }}
+-                className="p-4 rounded-xl border border-border bg-surface text-center"
+-              >
+-                <p className="text-2xl font-bold text-accent font-mono mb-1">{stat.value}</p>
+-                <p className="text-muted text-xs leading-tight">{stat.label}</p>
+-              </div>
+-            ))}
+-          </div>
+-        </div>
+-
+-        {/* Cards — dari t.whyme.cards */}
+-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-4">
+-          {w.cards.map((item, i) => (
+-            <div
+-              key={item.title}
+-              ref={(el) => (cardsRef.current[i] = el)}
+-              style={{ opacity: 0 }}
+-              className="group relative p-6 rounded-2xl border border-border bg-surface hover:border-accent/40 transition-all duration-300"
+-            >
+-              <div
+-                className="absolute inset-0 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+-                style={{ background: 'radial-gradient(circle at 50% 0%, rgba(127,119,221,0.07) 0%, transparent 70%)' }}
+-              />
+-              <div className="text-2xl mb-4">{item.icon}</div>
+-              <h3 className="text-white font-semibold text-sm mb-2">{item.title}</h3>
+-              <p className="text-muted text-xs leading-relaxed">{item.desc}</p>
+-              <span className="absolute bottom-4 right-5 font-mono text-4xl font-bold text-white/[0.03] select-none pointer-events-none">
+-                {String(i + 1).padStart(2, '0')}
+-              </span>
+-            </div>
+-          ))}
+-        </div>
+-
+-        <div className="mt-12 flex items-center gap-4 p-5 rounded-2xl border border-border/50 bg-surface/50">
+-          <div className="text-3xl flex-shrink-0">💬</div>
+-          <p className="text-muted text-sm leading-relaxed">
+-            <span className="text-white font-medium">{w.quote}</span>{' '}{w.quoteEnd}
+-          </p>
+-        </div>
+-      </div>
+-    </section>
+-  )
+-}
+\ No newline at end of file
+diff --git a/data/content.js b/data/content.js
+index 0b948ae..3ec6cf9 100644
+--- a/data/content.js
++++ b/data/content.js
+@@ -4,11 +4,8 @@ export const content = {
+       links: [
+         { label: 'Karya', href: '#works' },
+         { label: 'Tentang', href: '#about' },
+-        { label: 'Layanan', href: '#services' },
+-        { label: 'Kenapa Saya', href: '#why-me' },
+         { label: 'Keahlian', href: '#skills' },
+         { label: 'Testimoni', href: '#testimonials' },
+-        { label: 'Proses', href: '#process' },
+         { label: 'Kontak', href: '#contact' },
+       ],
+       hireMe: 'Hire Saya',
+@@ -52,10 +49,13 @@ export const content = {
+       paragraph1End: '.',
+       paragraph2:
+         'Dengan pengalaman membangun dan mengkomersialkan produk digital untuk pasar Indonesia, saya memadukan sense desain yang kuat dengan pendekatan teknis yang solid — dibantu workflow berbasis AI untuk hasil yang lebih detail dan premium.',
++      paragraph3:
++        'Cakupan kerja saya mulai dari landing page, company profile, hingga web app dan integrasi AI — dikerjakan penuh dari desain sampai deployment, dengan pendampingan setelah proyek launch.',
+       highlights: [
+         { label: 'Digital Product Builder', icon: '📦' },
+         { label: 'Freelancer', icon: '🧑‍💻' },
+         { label: 'UI-Focused Developer', icon: '✦' },
++        { label: 'Fast Delivery (7–14 hari)', icon: '⚡' },
+       ],
+       ctaLink: 'Diskusikan proyek Anda dengan saya',
+       aiBadgeTitle: 'AI-Augmented Developer',
+@@ -222,13 +222,22 @@ export const content = {
+       sub: 'Punya ide, bisnis, atau proyek yang ingin diwujudkan? Saya siap membantu Anda mewujudkannya.',
+       ctaPrimary: 'Hubungi Saya',
+       ctaSecondary: 'Lihat Portfolio',
++      processLabel: 'Cara Kerja Singkat',
++      processSteps: [
++        { step: '01', title: 'Konsultasi' },
++        { step: '02', title: 'Development' },
++        { step: '03', title: 'Revisi' },
++        { step: '04', title: 'Launch & Support' },
++      ],
++      guaranteeBadge: 'Garansi revisi 5 hari + bebas error sistem 4 bulan',
++      guaranteeDetail:
++        'Setiap proyek termasuk garansi revisi & penyesuaian minor selama 5 hari setelah serah terima, dan garansi bebas error sistem selama 4 bulan (di luar isu hosting/domain pihak ketiga atau perubahan kode oleh pihak lain).',
+     },
+     footer: {
+       tagline: 'Membangun pengalaman digital — bukan sekadar website.',
+       navLinks: [
+         { label: 'Karya', href: '#works' },
+         { label: 'Tentang', href: '#about' },
+-        { label: 'Layanan', href: '#services' },
+         { label: 'Keahlian', href: '#skills' },
+         { label: 'Testimoni', href: '#testimonials' },
+         { label: 'Kontak', href: '#contact' },
+@@ -243,11 +252,8 @@ export const content = {
+       links: [
+         { label: 'Works', href: '#works' },
+         { label: 'About', href: '#about' },
+-        { label: 'Services', href: '#services' },
+-        { label: 'Why Me', href: '#why-me' },
+         { label: 'Skills', href: '#skills' },
+         { label: 'Testimonials', href: '#testimonials' },
+-        { label: 'Process', href: '#process' },
+         { label: 'Contact', href: '#contact' },
+       ],
+       hireMe: 'Hire Me',
+@@ -291,10 +297,13 @@ export const content = {
+       paragraph1End: '.',
+       paragraph2:
+         'With experience building and commercializing digital products for the Indonesian market, I combine strong design sense with a solid technical approach — supported by an AI-driven workflow for more detailed, premium results.',
++      paragraph3:
++        'My scope of work ranges from landing pages and company profiles to web apps and AI integrations — handled end-to-end from design to deployment, with support after launch.',
+       highlights: [
+         { label: 'Digital Product Builder', icon: '📦' },
+         { label: 'Freelancer', icon: '🧑‍💻' },
+         { label: 'UI-Focused Developer', icon: '✦' },
++        { label: 'Fast Delivery (7–14 days)', icon: '⚡' },
+       ],
+       ctaLink: "Let's discuss your project",
+       aiBadgeTitle: 'AI-Augmented Developer',
+@@ -461,13 +470,22 @@ export const content = {
+       sub: 'Have an idea, business, or project you want to bring to life? I would be glad to help.',
+       ctaPrimary: 'Contact Me',
+       ctaSecondary: 'View Portfolio',
++      processLabel: 'How I Work',
++      processSteps: [
++        { step: '01', title: 'Consultation' },
++        { step: '02', title: 'Development' },
++        { step: '03', title: 'Revision' },
++        { step: '04', title: 'Launch & Support' },
++      ],
++      guaranteeBadge: '5-day revision guarantee + 4-month system error coverage',
++      guaranteeDetail:
++        'Every project includes a 5-day revision & minor-adjustment guarantee after handover, plus 4 months of system error coverage (excluding third-party hosting/domain issues or code changes made by other parties).',
+     },
+     footer: {
+       tagline: 'Building digital experiences — not just websites.',
+       navLinks: [
+         { label: 'Works', href: '#works' },
+         { label: 'About', href: '#about' },
+-        { label: 'Services', href: '#services' },
+         { label: 'Skills', href: '#skills' },
+         { label: 'Testimonials', href: '#testimonials' },
+         { label: 'Contact', href: '#contact' },
