@@ -188,8 +188,8 @@ export const content = {
         },
         {
           name: 'Ferdyan Syahwal',
-          role: 'Trader & Founder Journalyze',
-          text: 'Journalyze beda dari journal trading lain yang pernah saya coba. Fiturnya pas banget sama kebutuhan trader harian — dari kalkulasi risiko otomatis, recap mingguan, sampai analisis AI yang beneran ngebantu evaluasi. Keliatan banget dibuat oleh orang yang ngerti dunia trading, bukan cuma developer biasa.',
+          role: 'Founder Journalyze',
+          text: 'Aplikasinya keren banget, jauh melebihi ekspektasi saya. Sekarang Journalyze udah saya jual dan alhamdulillah banyak trader yang suka dan terus pakai. Gak nyangka hasilnya bisa seprofesional ini.',
           rating: 5,
         },
       ],
@@ -436,8 +436,8 @@ export const content = {
         },
         {
           name: 'Ferdyan Syahwal',
-          role: 'Trader & Founder of Journalyze',
-          text: 'Journalyze is unlike any trading journal I have tried before. Every feature hits exactly what a daily trader needs — from automatic risk calculation and weekly recaps to AI-powered analysis that actually helps with evaluation. You can tell it was built by someone who genuinely understands trading, not just a developer.',
+          role: 'Founder of Journalyze',
+          text: 'The app turned out amazing, way beyond what I expected. Journalyze is now live and selling — and honestly a lot of traders love it and keep coming back. Never thought it would look this professional.',
           rating: 5,
         },
       ],

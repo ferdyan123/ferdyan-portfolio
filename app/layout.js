@@ -3,6 +3,7 @@ import { siteConfig } from '@/data/projects'
 import { TransitionProvider } from '@/components/TransitionContext'
 import PageTransition from '@/components/PageTransition'
 import { LanguageProvider } from '@/context/LanguageContext'
+import CursorGlow from '@/components/CursorGlow'
 
 export const metadata = {
   title: siteConfig.metaTitle,
@@ -23,6 +24,7 @@ export default function RootLayout({ children }) {
       <body className="bg-bg text-white font-sans antialiased">
         <LanguageProvider>
           <TransitionProvider>
+            <CursorGlow />
             <PageTransition />
             {children}
           </TransitionProvider>
