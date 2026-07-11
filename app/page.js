@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect } from 'react'
+import { useEffect, Suspense } from 'react'
 import { useSearchParams } from 'next/navigation'
 import Navbar from '@/components/Navbar'
 import Hero from '@/components/Hero'
@@ -11,13 +11,12 @@ import Testimonials from '@/components/Testimonials'
 import CTA from '@/components/CTA'
 import Footer from '@/components/Footer'
 
-export default function Home() {
+function ScrollHandler() {
   const searchParams = useSearchParams()
 
   useEffect(() => {
     const scrollTo = searchParams.get('scrollTo')
     if (!scrollTo) return
-    // Tunggu sebentar sampai section mount, lalu scroll
     const timer = setTimeout(() => {
       const el = document.getElementById(scrollTo)
       if (el) el.scrollIntoView({ behavior: 'smooth' })
@@ -25,8 +24,15 @@ export default function Home() {
     return () => clearTimeout(timer)
   }, [searchParams])
 
+  return null
+}
+
+export default function Home() {
   return (
     <main>
+      <Suspense fallback={null}>
+        <ScrollHandler />
+      </Suspense>
       <Navbar />
       <Hero />
       <Works />
